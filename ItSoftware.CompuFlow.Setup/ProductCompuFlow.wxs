@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:pca="http://schemas.microsoft.com/wix/MsmqExtension" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension" xmlns:utl="http://schemas.microsoft.com/wix/UtilExtension">
+  <Product Id="*"  UpgradeCode="6FD9ADB9-D04F-4ED3-BD1F-F220B0B7A8EE" Version="1.0.0.0" Language="1033" Name="Compu Flow" Manufacturer="It Software">
+    <Package InstallerVersion="200"  Compressed="yes" InstallScope="perMachine" />
+    <MajorUpgrade Schedule="afterInstallInitialize" DowngradeErrorMessage="A later version of [ProductName] is already installed." AllowSameVersionUpgrades="yes"/>
+
+    <PropertyRef Id="NETFRAMEWORK45" />
+
+    <Condition Message="This application requires .NET Framework 4.5 Full. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK45]]>
+    </Condition>
+
+    <Icon Id="AppIcon.ico" SourceFile="AppIconBlack.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="AppIcon.ico" />
+
+    <WixVariable Id="WixUIBannerBmp" Value="Banner.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="BannerFront.bmp"/>
+    
+    <!-- Property Id="IS_MSMQ_INSTALLED">0</Property -->
+    <Binary Id="CompuFlowCustomAction.dll" SourceFile="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.CustomAction\bin\Release\ItSoftware.CompuFlow.CustomAction.CA.dll" />
+    <CustomAction Id="CheckIsMsmqInstalled"  BinaryKey="CompuFlowCustomAction.dll" DllEntry="IsMsmqInstalled" Execute="immediate" />
+    <CustomAction Id="SetMsmqAcl" Impersonate="no" BinaryKey="CompuFlowCustomAction.dll" DllEntry="SetMsmqAcl" Execute="deferred" />
+    <CustomAction Id="ExecuteInstallUtilEvents" Return="check" Impersonate="no" BinaryKey="CompuFlowCustomAction.dll" DllEntry="ExecuteInstallUtilEvents" Execute="deferred" />
+    <CustomAction Id="ExecuteInstallUtilEvents.SetProperty" Return="check"  Property="ExecuteInstallUtilEvents" Value="[EVENTSDIR]" />
+    <CustomAction Id="ExecuteUnInstallUtilEvents" Return="check" Impersonate="no" BinaryKey="CompuFlowCustomAction.dll" DllEntry="ExecuteUnInstallUtilEvents" Execute="deferred" />
+    <CustomAction Id="ExecuteUnInstallUtilEvents.SetProperty" Return="check"  Property="ExecuteUnInstallUtilEvents" Value="[EVENTSDIR]" />
+    <CustomAction Id="ExecuteInstallUtilGenerator" Return="check" Impersonate="no" BinaryKey="CompuFlowCustomAction.dll" DllEntry="ExecuteInstallUtilGenerator" Execute="deferred" />
+    <CustomAction Id="ExecuteInstallUtilGenerator.SetProperty" Return="check"  Property="ExecuteInstallUtilGenerator" Value="[GENERATORDIR]" />
+    <CustomAction Id="ExecuteUnInstallUtilGenerator" Return="check" Impersonate="no" BinaryKey="CompuFlowCustomAction.dll" DllEntry="ExecuteUnInstallUtilGenerator" Execute="deferred" />
+    <CustomAction Id="ExecuteUnInstallUtilGenerator.SetProperty" Return="check"  Property="ExecuteUnInstallUtilGenerator" Value="[GENERATORDIR]" />
+    <CustomAction Id="ExecuteInstallUtilPublisher" Return="check" Impersonate="no" BinaryKey="CompuFlowCustomAction.dll" DllEntry="ExecuteInstallUtilPublisher" Execute="deferred" />
+    <CustomAction Id="ExecuteInstallUtilPublisher.SetProperty" Return="check"  Property="ExecuteInstallUtilPublisher" Value="[PUBLISHERDIR]" />
+    <CustomAction Id="ExecuteUnInstallUtilPublisher" Return="check" Impersonate="no" BinaryKey="CompuFlowCustomAction.dll" DllEntry="ExecuteUnInstallUtilPublisher" Execute="deferred" />
+    <CustomAction Id="ExecuteUnInstallUtilPublisher.SetProperty" Return="check"  Property="ExecuteUnInstallUtilPublisher" Value="[PUBLISHERDIR]" />
+    <CustomAction Id="ExecuteInstallUtilRetrival" Return="check" Impersonate="no" BinaryKey="CompuFlowCustomAction.dll" DllEntry="ExecuteInstallUtilRetrival" Execute="deferred" />
+    <CustomAction Id="ExecuteInstallUtilRetrival.SetProperty" Return="check"  Property="ExecuteInstallUtilRetrival" Value="[RETRIVALDIR]" />
+    <CustomAction Id="ExecuteUnInstallUtilRetrival" Return="check" Impersonate="no" BinaryKey="CompuFlowCustomAction.dll" DllEntry="ExecuteUnInstallUtilRetrival" Execute="deferred" />
+    <CustomAction Id="ExecuteUnInstallUtilRetrival.SetProperty" Return="check"  Property="ExecuteUnInstallUtilRetrival" Value="[RETRIVALDIR]" />
+
+
+    <!-- Condition Message='This setup requires MSMQ to be installed on the machine.'><![CDATA[IS_MSMQ_INSTALLED <> 1]]></Condition -->
+   
+    <Media Id="1" Cabinet="compuflow.cab" EmbedCab="yes" />
+    
+    <InstallExecuteSequence>
+      <Custom Action="CheckIsMsmqInstalled" Before="LaunchConditions">NOT Installed AND NOT PATCH</Custom>
+      <Custom Action="SetMsmqAcl" Before="InstallFinalize">NOT Installed AND NOT PATCH</Custom>
+      
+      <Custom Action="ExecuteInstallUtilEvents.SetProperty" Before="InstallFinalize" />
+      <Custom Action="ExecuteInstallUtilEvents" After="ExecuteInstallUtilEvents.SetProperty">NOT Installed AND NOT PATCH</Custom>
+      <Custom Action="ExecuteUnInstallUtilEvents.SetProperty" After="InstallInitialize" />
+      <Custom Action="ExecuteUnInstallUtilEvents" After="ExecuteUnInstallUtilEvents.SetProperty">(Installed AND NOT UPGRADINGPRODUCTCODE) OR (Installed AND REMOVE="ALL") OR (REMOVE="ALL")</Custom>
+
+      <Custom Action="ExecuteInstallUtilGenerator.SetProperty" Before="InstallFinalize" />
+      <Custom Action="ExecuteInstallUtilGenerator" After="ExecuteInstallUtilGenerator.SetProperty">NOT Installed AND NOT PATCH</Custom>
+      <Custom Action="ExecuteUnInstallUtilGenerator.SetProperty" After="InstallInitialize" />
+      <Custom Action="ExecuteUnInstallUtilGenerator" After="ExecuteUnInstallUtilGenerator.SetProperty">(Installed AND NOT UPGRADINGPRODUCTCODE) OR (Installed AND REMOVE="ALL") OR (REMOVE="ALL")</Custom>
+
+      <Custom Action="ExecuteInstallUtilPublisher.SetProperty" Before="InstallFinalize" />
+      <Custom Action="ExecuteInstallUtilPublisher" After="ExecuteInstallUtilPublisher.SetProperty">NOT Installed AND NOT PATCH</Custom>
+      <Custom Action="ExecuteUnInstallUtilPublisher.SetProperty" After="InstallInitialize" />
+      <Custom Action="ExecuteUnInstallUtilPublisher" After="ExecuteUnInstallUtilPublisher.SetProperty">(Installed AND NOT UPGRADINGPRODUCTCODE) OR (Installed AND REMOVE="ALL") OR (REMOVE="ALL")</Custom>
+
+      <Custom Action="ExecuteInstallUtilRetrival.SetProperty" Before="InstallFinalize" />
+      <Custom Action="ExecuteInstallUtilRetrival" After="ExecuteInstallUtilRetrival.SetProperty">NOT Installed AND NOT PATCH</Custom>
+      <Custom Action="ExecuteUnInstallUtilRetrival.SetProperty" After="InstallInitialize" />
+      <Custom Action="ExecuteUnInstallUtilRetrival" After="ExecuteUnInstallUtilRetrival.SetProperty">(Installed AND NOT UPGRADINGPRODUCTCODE) OR (Installed AND REMOVE="ALL") OR (REMOVE="ALL")</Custom>
+    </InstallExecuteSequence>
+    
+    <!-- Step 1: Define the directory structure -->    
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFDir">
+        <Directory Id="APPLICATIONROOTDIRECTORY"  Name="CompuFlow" ComponentGuidGenerationSeed="88748574-4C0A-4DA7-A00B-A6EF04C7D809">
+          <Directory Id="RETRIVALDIR" Name="Retrival">
+            <Directory Id="RETRIVAL_FAILURE" Name="Failure"/>
+            <Directory Id="RETRIVAL_OUTPUT" Name="Output"/>
+            <Directory Id="RETRIVAL_RETRIVALS" Name="Retrivals">
+              <Directory Id="RETRIVAL_RETRIVALS_CHANNELA" Name="ChannelA"/>
+            </Directory>
+            <Directory Id="RETRIVAL_TEMP" Name="Temp"/>
+            <Directory Id="RETRIVAL_TEMPORARY_RETRIVAL_FILES" Name="Temporary Retrival Files"/>
+          </Directory>
+          <Directory Id="GENERATORDIR" Name="Generator">
+            <Directory Id="GENERATOR_FAILURE" Name="Failure"/>
+            <Directory Id="GENERATOR_OUTPUT" Name="Output"/>
+            <Directory Id="GENERATOR_GENERATORS" Name="Generators">
+              <Directory Id="GENERATOR_GENERATORS_CHANNELA" Name="ChannelA"/>
+            </Directory>
+            <Directory Id="GENERATOR_TEMP" Name="Temp"/>
+            <Directory Id="GENERATOR_TEMPORARY_GENERATOR_FILES" Name="Temporary Generator Files"/>
+          </Directory>
+          <Directory Id="PUBLISHERDIR" Name="Publisher">
+            <Directory Id="PUBLISHER_FAILURE" Name="Failure"/>
+            <Directory Id="PUBLISHER_PUBLISHERS" Name="Publishers">
+              <Directory Id="PUBLISHER_PUBLISHERS_CHANNELA" Name="ChannelA"/>
+            </Directory>
+            <Directory Id="PUBLISHER_TEMP" Name="Temp"/>
+            <Directory Id="PUBLISHER_TEMPORARY_PUBLISHER_FILES" Name="Temporary Publisher Files"/>
+          </Directory>
+          <Directory Id="EVENTSDIR" Name="Events">
+            <Directory Id="EVENTS_FAILURE" Name="Failure"/>
+            <Directory Id="EVENTS_HANDLERS" Name="Handlers">
+              <Directory Id="EVENTS_HANDLERS_CHANNELA" Name="ChannelA"/>
+            </Directory>
+            <Directory Id="EVENTS_TEMP" Name="Temp"/>
+            <Directory Id="EVENTS_TEMPORARY_HANDLER_FILES" Name="Temporary Handler Files"/>
+          </Directory>
+          <Directory Id="CONTROLCENTERDIR" Name="Control Center"/>
+        </Directory>
+      </Directory>
+    </Directory>
+    
+    <!-- Step 2: Add files to your installer package -->
+    <DirectoryRef Id="RETRIVALDIR">
+      <Component Id="ItSoftware.CompuFlow.Retrival" Guid="9AC0709E-4F59-4DFC-ADDF-860A1F767680">
+        <File Id="ItSoftware.CompuFlow.Retrival.exe" Name="ItSoftware.CompuFlow.Retrival.exe" Vital="yes" AssemblyApplication="ItSoftware.CompuFlow.Retrival.exe" Assembly=".net" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Retrival\bin\Release\ItSoftware.CompuFlow.Retrival.exe" KeyPath="yes" Checksum="yes"/>
+        <File Id="ItSoftware.CompuFlow.Retrival.exe.config" Name="ItSoftware.CompuFlow.Retrival.exe.config" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Retrival\bin\Release\ItSoftware.CompuFlow.Retrival.exe.config" KeyPath="no" Checksum="no"/>
+        <File Id="R_Flow.config" Name="Flow.config" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Retrival\bin\Release\Flow.config" KeyPath="no" Checksum="no"/>
+        <ServiceControl Id='ItSoftware.CompuFlow.Retrival.ServiceControl' Name='ItSoftware.CompuFlow.Retrival.exe.ServiceControl' Stop='uninstall' Remove='uninstall' />
+      </Component>
+      <Component Id="R_ICSharpCode.SharpZipLib" Guid="{8FD139FD-6BB0-4BCB-8464-AC28D5545AE6}">
+        <File Id="R_ICSharpCode.SharpZipLib.dll"  Name="ICSharpCode.SharpZipLib.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Retrival\bin\Release\ICSharpCode.SharpZipLib.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.Retrival.exe" />
+      </Component>
+      <Component Id="R_ItSoftware.CompuFlow.Common" Guid="{B50855E4-6DFD-4C0F-8140-044C4B45B7EA}">
+        <File Id="R_ItSoftware.CompuFlow.Common.dll" Name="ItSoftware.CompuFlow.Common.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Retrival\bin\Release\ItSoftware.CompuFlow.Common.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Retrival.exe" />
+      </Component>
+      <Component Id="R_ItSoftware.CompuFlow.Gateway.SectionHandlers" Guid="{70761B87-AA2E-4B33-9716-6992788A183B}">
+        <File Id="R_ItSoftware.CompuFlow.Gateway.SectionHandlers.dll" Name="ItSoftware.CompuFlow.Gateway.SectionHandlers.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Retrival\bin\Release\ItSoftware.CompuFlow.Gateway.SectionHandlers.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Retrival.exe" />
+      </Component>
+      <Component Id="R_ItSoftware.CompuFlow.Manifest" Guid="{6620852F-07F4-43F4-BA4E-F554C8521FBA}">
+        <File Id="R_ItSoftware.CompuFlow.Manifest.dll" Name="ItSoftware.CompuFlow.Manifest.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Retrival\bin\Release\ItSoftware.CompuFlow.Manifest.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Retrival.exe" />
+      </Component>
+      <Component Id="R_ItSoftware.CompuFlow.Retrival.HostRuntime" Guid="{906A7342-ADA2-4384-B1D4-44F280A381C6}">
+        <File Id="R_ItSoftware.CompuFlow.Retrival.HostRuntime.dll" Name="ItSoftware.CompuFlow.Retrival.HostRuntime.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Retrival\bin\Release\ItSoftware.CompuFlow.Retrival.HostRuntime.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Retrival.exe" />
+      </Component>
+      <Component Id="R_ItSoftware.CompuFlow.Retrival.Interfaces" Guid="{2D4C3ECA-681E-47C7-B864-1D2DD1F8E6B8}">
+        <File Id="R_ItSoftware.CompuFlow.Retrival.Interfaces.dll" Name="ItSoftware.CompuFlow.Retrival.Interfaces.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Retrival\bin\Release\ItSoftware.CompuFlow.Retrival.Interfaces.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Retrival.exe" />
+      </Component>
+      <Component Id="R_ItSoftware.CompuFlow.Util" Guid="{3C6468EF-EA5E-4840-94BA-61F0A3EC9BE8}">
+        <File Id="R_ItSoftware.CompuFlow.Util.dll" Name="ItSoftware.CompuFlow.Util.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Retrival\bin\Release\ItSoftware.CompuFlow.Util.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Retrival.exe" />
+      </Component>
+      <Component Id="R_ItSoftware.ExceptionHandler" Guid="{8EE553BA-6C07-402C-A3CA-4AAEA287CB04}">
+        <File Id="R_ItSoftware.ExceptionHandler.dll" Name="ItSoftware.ExceptionHandler.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Retrival\bin\Release\ItSoftware.ExceptionHandler.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Retrival.exe" />
+      </Component>
+      <Component Id="RetrivalDirectories" Guid="{43F32F2F-F7E6-4A86-AF67-99BAE1A40E92}" KeyPath="yes">
+        <CreateFolder Directory="RETRIVAL_FAILURE"/>
+        <CreateFolder Directory="RETRIVAL_OUTPUT"/>
+        <CreateFolder Directory="RETRIVAL_RETRIVALS"/>
+        <CreateFolder Directory="RETRIVAL_TEMP"/>
+        <CreateFolder Directory="RETRIVAL_TEMPORARY_RETRIVAL_FILES"/>
+      </Component>
+    </DirectoryRef>
+    
+    <DirectoryRef Id="GENERATORDIR">
+      <Component Id="ItSoftware.CompuFlow.Generator" Guid="{AEC74752-318C-4F46-9321-3BF611D6921D}">
+        <File Id="ItSoftware.CompuFlow.Generator.exe" Name="ItSoftware.CompuFlow.Generator.exe" Vital="yes" AssemblyApplication="ItSoftware.CompuFlow.Generator.exe" Assembly=".net" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Generator\bin\Release\ItSoftware.CompuFlow.Generator.exe" KeyPath="yes" Checksum="yes"/>
+        <File Id="ItSoftware.CompuFlow.Generator.exe.config" Name="ItSoftware.CompuFlow.Generator.exe.config" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Generator\bin\Release\ItSoftware.CompuFlow.Generator.exe.config" KeyPath="no" Checksum="no"/>
+        <File Id="G_Flow.config" Name="Flow.config" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Generator\bin\Release\Flow.config" KeyPath="no" Checksum="no"/>
+      </Component>
+      <Component Id="G_ICSharpCode.SharpZipLib" Guid="{9A2AB5FD-4913-4031-8F28-3697480B6920}">
+        <File Id="G_ICSharpCode.SharpZipLib.dll" Name="ICSharpCode.SharpZipLib.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Generator\bin\Release\ICSharpCode.SharpZipLib.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.Generator.exe" />
+      </Component>
+      <Component Id="G_ItSoftware.CompuFlow.Common" Guid="{38F66F90-0111-4A94-AAEF-98518E422CD6}">
+        <File Id="G_ItSoftware.CompuFlow.Common.dll" Name="ItSoftware.CompuFlow.Common.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Generator\bin\Release\ItSoftware.CompuFlow.Common.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Generator.exe" />
+      </Component>
+      <Component Id="G_ItSoftware.CompuFlow.Gateway.SectionHandlers" Guid="{E87BD65F-BFF5-4DFD-A0C6-BE24E8071805}">
+        <File Id="G_ItSoftware.CompuFlow.Gateway.SectionHandlers.dll" Name="ItSoftware.CompuFlow.Gateway.SectionHandlers.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Generator\bin\Release\ItSoftware.CompuFlow.Gateway.SectionHandlers.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Generator.exe" />
+      </Component>
+      <Component Id="G_ItSoftware.CompuFlow.Manifest" Guid="{DC3DDC59-1FA0-4E71-A5AC-C5B8B8C5C42B}">
+        <File Id="G_ItSoftware.CompuFlow.Manifest.dll" Name="ItSoftware.CompuFlow.Manifest.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Generator\bin\Release\ItSoftware.CompuFlow.Manifest.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Generator.exe" />
+      </Component>
+      <Component Id="G_ItSoftware.CompuFlow.Generator.HostRuntime" Guid="{D25026D0-4885-4AF2-ABE1-7A3F2B71BB97}">
+        <File Id="G_ItSoftware.CompuFlow.Generator.HostRuntime.dll" Name="ItSoftware.CompuFlow.Generator.HostRuntime.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Generator\bin\Release\ItSoftware.CompuFlow.Generator.HostRuntime.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Generator.exe" />
+      </Component>
+      <Component Id="G_ItSoftware.CompuFlow.Generator.Interfaces" Guid="{0B4921AA-8B15-4721-AF81-193F139A81A6}">
+        <File Id="G_ItSoftware.CompuFlow.Generator.Interfaces.dll" Name="ItSoftware.CompuFlow.Generator.Interfaces.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Generator\bin\Release\ItSoftware.CompuFlow.Generator.Interfaces.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Generator.exe" />
+      </Component>
+      <Component Id="G_ItSoftware.CompuFlow.Util" Guid="{59C12B08-943A-4FCF-98D8-80A5CE09021C}">
+        <File Id="G_ItSoftware.CompuFlow.Util.dll" Name="ItSoftware.CompuFlow.Util.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Generator\bin\Release\ItSoftware.CompuFlow.Util.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Generator.exe" />
+      </Component>
+      <Component Id="G_ItSoftware.ExceptionHandler" Guid="{EADE6FC9-F2CF-46A0-81F9-FB47928DF5E8}">
+        <File Id="G_ItSoftware.ExceptionHandler.dll" Name="ItSoftware.ExceptionHandler.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Generator\bin\Release\ItSoftware.ExceptionHandler.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Generator.exe" />
+      </Component>
+      <Component Id="GeneratorDirectories" Guid="{99DA4473-1C0B-40EA-BC15-B600164012AE}" KeyPath="yes">
+        <CreateFolder Directory="GENERATOR_FAILURE"/>
+        <CreateFolder Directory="GENERATOR_OUTPUT"/>
+        <CreateFolder Directory="GENERATOR_GENERATORS"/>
+        <CreateFolder Directory="GENERATOR_TEMP"/>
+        <CreateFolder Directory="GENERATOR_TEMPORARY_GENERATOR_FILES"/>
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="PUBLISHERDIR">
+      <Component Id="ItSoftware.CompuFlow.Publisher" Guid="{DBB7DE69-8E14-4787-BE7A-12CBCAC1D863}">
+        <File Id="ItSoftware.CompuFlow.Publisher.exe" Name="ItSoftware.CompuFlow.Publisher.exe" Vital="yes" AssemblyApplication="ItSoftware.CompuFlow.Publisher.exe" Assembly=".net" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Publisher\bin\Release\ItSoftware.CompuFlow.Publisher.exe" KeyPath="yes" Checksum="yes"/>
+        <File Id="ItSoftware.CompuFlow.Publisher.exe.config" Name="ItSoftware.CompuFlow.Publisher.exe.config" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Publisher\bin\Release\ItSoftware.CompuFlow.Publisher.exe.config" KeyPath="no" Checksum="no"/>
+        <File Id="P_Flow.config" Name="Flow.config" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Publisher\bin\Release\Flow.config" KeyPath="no" Checksum="no"/>
+      </Component>
+      <Component Id="P_ICSharpCode.SharpZipLib" Guid="{5B8F9B59-DF55-43BD-A171-0D3D311D7B1E}">
+        <File Id="P_ICSharpCode.SharpZipLib.dll"  Name="ICSharpCode.SharpZipLib.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Publisher\bin\Release\ICSharpCode.SharpZipLib.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.Publisher.exe" />
+      </Component>
+      <Component Id="P_ItSoftware.CompuFlow.Common" Guid="{AD4F2BC4-1E5B-4C7D-9A90-32FF3E208377}">
+        <File Id="P_ItSoftware.CompuFlow.Common.dll" Name="ItSoftware.CompuFlow.Common.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Publisher\bin\Release\ItSoftware.CompuFlow.Common.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Publisher.exe" />
+      </Component>
+      <Component Id="P_ItSoftware.CompuFlow.Gateway.SectionHandlers" Guid="{39722CE6-7800-450E-BADF-C84704725E1F}">
+        <File Id="P_ItSoftware.CompuFlow.Gateway.SectionHandlers.dll" Name="ItSoftware.CompuFlow.Gateway.SectionHandlers.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Publisher\bin\Release\ItSoftware.CompuFlow.Gateway.SectionHandlers.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Publisher.exe" />
+      </Component>
+      <Component Id="P_ItSoftware.CompuFlow.Manifest" Guid="{5CB9DFCC-3DAA-4C46-9570-3444111FCDE4}">
+        <File Id="P_ItSoftware.CompuFlow.Manifest.dll" Name="ItSoftware.CompuFlow.Manifest.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Publisher\bin\Release\ItSoftware.CompuFlow.Manifest.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Publisher.exe" />
+      </Component>
+      <Component Id="P_ItSoftware.CompuFlow.Publisher.HostRuntime" Guid="{B3B61578-E4C7-4E2C-9544-683180D661B1}">
+        <File Id="P_ItSoftware.CompuFlow.Publisher.HostRuntime.dll" Name="ItSoftware.CompuFlow.Publisher.HostRuntime.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Publisher\bin\Release\ItSoftware.CompuFlow.Publisher.HostRuntime.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Publisher.exe" />
+      </Component>
+      <Component Id="P_ItSoftware.CompuFlow.Publisher.Interfaces" Guid="{60018176-D41D-4CF7-A713-F5D6953EB40B}">
+        <File Id="P_ItSoftware.CompuFlow.Publisher.Interfaces.dll" Name="ItSoftware.CompuFlow.Publisher.Interfaces.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Publisher\bin\Release\ItSoftware.CompuFlow.Publisher.Interfaces.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Publisher.exe" />
+      </Component>
+      <Component Id="P_ItSoftware.CompuFlow.Util" Guid="{4A09B74F-C258-4CD1-9D6C-59F26842457A}">
+        <File Id="P_ItSoftware.CompuFlow.Util.dll" Name="ItSoftware.CompuFlow.Util.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Publisher\bin\Release\ItSoftware.CompuFlow.Util.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Publisher.exe" />
+      </Component>
+      <Component Id="P_ItSoftware.ExceptionHandler" Guid="{E3386566-5E72-438D-9F2A-BFDAE2838B3C}">
+        <File Id="P_ItSoftware.ExceptionHandler.dll" Name="ItSoftware.ExceptionHandler.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Publisher\bin\Release\ItSoftware.ExceptionHandler.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Publisher.exe" />
+      </Component>
+      <Component Id="PublisherDirectories" Guid="{F6F950F4-FFB7-4DD5-858F-D168F06A8FB4}" KeyPath="yes">
+        <CreateFolder Directory="PUBLISHER_FAILURE"/>
+        <CreateFolder Directory="PUBLISHER_PUBLISHERS"/>
+        <CreateFolder Directory="PUBLISHER_TEMP"/>
+        <CreateFolder Directory="PUBLISHER_TEMPORARY_PUBLISHER_FILES"/>
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="EVENTSDIR">
+      <Component Id="ItSoftware.CompuFlow.Events" Guid="{4E509667-6473-45C4-8B2F-D59F27B2FD75}">
+        <File Id="ItSoftware.CompuFlow.Events.exe" Name="ItSoftware.CompuFlow.Events.exe" Vital="yes" AssemblyApplication="ItSoftware.CompuFlow.Events.exe" Assembly=".net" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Events\bin\Release\ItSoftware.CompuFlow.Events.exe" KeyPath="yes" Checksum="yes"/>
+        <File Id="ItSoftware.CompuFlow.Events.exe.config" Name="ItSoftware.CompuFlow.Events.exe.config" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Events\bin\Release\ItSoftware.CompuFlow.Events.exe.config" KeyPath="no" Checksum="no"/>
+        <File Id="E_Flow.config" Name="Flow.config" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Events\bin\Release\Flow.config" KeyPath="no" Checksum="no"/>
+      </Component>
+      <Component Id="E_ICSharpCode.SharpZipLib" Guid="{02DA06B2-55C2-4750-897D-8B5A10A4F462}">
+        <File Id="E_ICSharpCode.SharpZipLib.dll"  Name="ICSharpCode.SharpZipLib.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Events\bin\Release\ICSharpCode.SharpZipLib.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.Events.exe" />
+      </Component>
+      <Component Id="E_ItSoftware.CompuFlow.Common" Guid="{A122AFDB-9F0B-46D5-BC67-E46D91904F53}">
+        <File Id="E_ItSoftware.CompuFlow.Common.dll" Name="ItSoftware.CompuFlow.Common.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Events\bin\Release\ItSoftware.CompuFlow.Common.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Events.exe" />
+      </Component>
+      <Component Id="E_ItSoftware.CompuFlow.Gateway.SectionHandlers" Guid="{F8518CF7-720A-4013-9B94-D4CF7B4E2F1A}">
+        <File Id="E_ItSoftware.CompuFlow.Gateway.SectionHandlers.dll" Name="ItSoftware.CompuFlow.Gateway.SectionHandlers.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Events\bin\Release\ItSoftware.CompuFlow.Gateway.SectionHandlers.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Events.exe" />
+      </Component>
+      <Component Id="E_ItSoftware.CompuFlow.Manifest" Guid="{BB0AD7DE-7391-4AAF-87D9-05DFBFA147FD}">
+        <File Id="E_ItSoftware.CompuFlow.Manifest.dll" Name="ItSoftware.CompuFlow.Manifest.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Events\bin\Release\ItSoftware.CompuFlow.Manifest.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Events.exe" />
+      </Component>
+      <Component Id="E_ItSoftware.CompuFlow.Events.HostRuntime" Guid="{59DCB012-3014-4824-9C82-E5C085DDEBAB}">
+        <File Id="E_ItSoftware.CompuFlow.Events.HostRuntime.dll" Name="ItSoftware.CompuFlow.Events.HostRuntime.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Events\bin\Release\ItSoftware.CompuFlow.Events.HostRuntime.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Events.exe" />
+      </Component>
+      <Component Id="E_ItSoftware.CompuFlow.Events.Interfaces" Guid="{A1F9C291-D69A-4D8F-93EE-45EBB453A1ED}">
+        <File Id="E_ItSoftware.CompuFlow.Events.Interfaces.dll" Name="ItSoftware.CompuFlow.Events.Interfaces.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Events\bin\Release\ItSoftware.CompuFlow.Events.Interfaces.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Events.exe" />
+      </Component>
+      <Component Id="E_ItSoftware.CompuFlow.Util" Guid="{1EABBD58-5BA7-4BC2-A08B-6F7346097DA0}">
+        <File Id="E_ItSoftware.CompuFlow.Util.dll" Name="ItSoftware.CompuFlow.Util.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Events\bin\Release\ItSoftware.CompuFlow.Util.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Events.exe" />
+      </Component>
+      <Component Id="E_ItSoftware.ExceptionHandler" Guid="{0C35CAA6-6ADF-47D2-8AB8-1FA5D38D8A33}">
+        <File Id="E_ItSoftware.ExceptionHandler.dll" Name="ItSoftware.ExceptionHandler.dll" Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.Events\bin\Release\ItSoftware.ExceptionHandler.dll" Assembly=".net" KeyPath="yes" Checksum="no"  AssemblyApplication="ItSoftware.CompuFlow.Events.exe" />
+      </Component>
+      <Component Id="EventsDirectories" Guid="{146A2CF4-A08A-4564-92DB-7AF6CFC5A4B5}" KeyPath="yes">
+        <CreateFolder Directory="EVENTS_FAILURE"/>
+        <CreateFolder Directory="EVENTS_HANDLERS"/>
+        <CreateFolder Directory="EVENTS_TEMP"/>
+        <CreateFolder Directory="EVENTS_TEMPORARY_HANDLER_FILES"/>
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="CONTROLCENTERDIR">
+      <Component Id="ItSoftware.CompuFlow.ControlCenter" Guid="{1446B3A1-9F3D-46B9-BC94-40482ADCF699}">
+        <File Id="ItSoftware.CompuFlow.ControlCenter.exe" Name="ItSoftware.CompuFlow.ControlCenter.exe" Vital="yes" AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" Assembly=".net" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\ItSoftware.CompuFlow.ControlCenter.exe" KeyPath="yes" Checksum="yes"/>
+        <File Id="CC_ItSoftware.CompuFlow.ControlCenter.exe.config" Name="ItSoftware.CompuFlow.ControlCenter.exe.config" Vital="yes" Assembly="no" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\ItSoftware.CompuFlow.ControlCenter.exe.config"  KeyPath="no" Checksum="no"/>
+      </Component>
+      <Component Id="CC_ICSharpCode.SharpZipLib" Guid="{DC3F4B69-299A-482C-B3BF-46CDDA7182F0}">
+        <File Id="CC_ICSharpCode.SharpZipLib.dll"  Name="ICSharpCode.SharpZipLib.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\ICSharpCode.SharpZipLib.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
+      </Component>
+      <Component Id="CC_ItSoftware.CompuFlow.Common" Guid="{8618DAF4-060B-4272-8262-1CFAC2A79A47}">
+        <File Id="CC_ItSoftware.CompuFlow.Common.dll"  Name="ItSoftware.CompuFlow.Common.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\ItSoftware.CompuFlow.Common.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
+      </Component>
+      <Component Id="CC_ItSoftware.CompuFlow.Gateway.SectionHandlers" Guid="{09ED89CF-1311-44A8-97B5-18DC8C728D54}">
+        <File Id="CC_ItSoftware.CompuFlow.Gateway.SectionHandlers.dll"  Name="ItSoftware.CompuFlow.Gateway.SectionHandlers.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\ItSoftware.CompuFlow.Gateway.SectionHandlers.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
+      </Component>
+      <Component Id="CC_ItSoftware.CompuFlow.Manifest" Guid="{00461A2F-30FC-4492-A00D-B6FDD159663E}">
+        <File Id="CC_ItSoftware.CompuFlow.Manifest.dll"  Name="ItSoftware.CompuFlow.Manifest.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\ItSoftware.CompuFlow.Manifest.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
+      </Component>
+      <Component Id="CC_ItSoftware.ExceptionHandler" Guid="{4E32707F-D156-467A-8139-F51E299149E3}">
+        <File Id="CC_ItSoftware.ExceptionHandler.dll"  Name="ItSoftware.ExceptionHandler.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\ItSoftware.ExceptionHandler.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
+      </Component>
+      <Component Id="CC_Telerik.Windows.Controls.Docking" Guid="{68B8044D-9C85-4DC0-B77E-BAD6605D4A2C}">
+        <File Id="CC_Telerik.Windows.Controls.Docking.dll"  Name="Telerik.Windows.Controls.Docking.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Controls.Docking.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
+      </Component>
+      <Component Id="CC_Telerik.Windows.Controls.GridView" Guid="{BCA5F568-0113-4C26-9F0D-824CA0E73171}">
+        <File Id="CC_Telerik.Windows.Controls.GridView.dll"  Name="Telerik.Windows.Controls.GridView.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Controls.GridView.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
+      </Component>
+      <Component Id="CC_Telerik.Windows.Controls" Guid="{4E837DB0-BA67-44AF-8BB8-524413E6FC5D}">
+        <File Id="CC_Telerik.Windows.Controls.dll"  Name="Telerik.Windows.Controls.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Controls.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
+      </Component>
+      <Component Id="CC_Telerik.Windows.Controls.Input" Guid="{66081FD9-E48A-465C-8E75-6C19920B2768}">
+        <File Id="CC_Telerik.Windows.Controls.Input.dll"  Name="Telerik.Windows.Controls.Input.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Controls.Input.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
+      </Component>
+      <Component Id="CC_Telerik.Windows.Controls.Navigation" Guid="{3D07361F-5954-4A95-A173-BD283707E9C7}">
+        <File Id="CC_Telerik.Windows.Controls.Navigation.dll"  Name="Telerik.Windows.Controls.Navigation.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Controls.Navigation.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
+      </Component>
+      <Component Id="CC_Telerik.Windows.Controls.RibbonView" Guid="{B2205179-9244-4607-81E3-840C282DB195}">
+        <File Id="CC_Telerik.Windows.Controls.RibbonView.dll"  Name="Telerik.Windows.Controls.RibbonView.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Controls.RibbonView.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
+      </Component>
+      <Component Id="CC_Telerik.Windows.Data" Guid="{8C049F9D-4DF5-4B75-9B5B-D8406B9850EE}">
+        <File Id="CC_Telerik.Windows.Data.dll"  Name="Telerik.Windows.Data.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Data.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
+      </Component>
+    </DirectoryRef>
+
+    <Component Id="R_MessageQueueComponent" Directory="RETRIVALDIR" Guid="{FAA24F12-5560-4477-AC27-EE5BBD67CB1B}" KeyPath="yes">
+      <!-- utl:User Id="R_Administrator" Domain="." Name="Administrator" / -->
+      <pca:MessageQueue Id="R_MessageQueue" Label="CompuFlowRetrival" PathName=".\Private$\CompuFlowRetrival">
+        <!-- pca:MessageQueuePermission Id="R_MessageQueuePermissionA" User="R_Administrator" ReceiveMessage="yes" WriteMessage ="yes" / -->
+      </pca:MessageQueue>
+    </Component>
+
+    <Component Id="G_MessageQueueComponent" Directory="GENERATORDIR" Guid="{F626A53D-23ED-4DB5-8B70-AFBDDAF08DDC}" KeyPath="yes">
+      <!-- utl:User Id="G_Administrator" Domain="." Name="Administrator" / -->
+      <pca:MessageQueue Id="G_MessageQueue" Label="CompuFlowGenerator" PathName=".\Private$\CompuFlowGenerator">
+        <!-- pca:MessageQueuePermission Id="G_MessageQueuePermissionA" User="G_Administrator" ReceiveMessage="yes" WriteMessage ="yes" / -->
+      </pca:MessageQueue>
+    </Component>
+
+    <Component Id="P_MessageQueueComponent" Directory="PUBLISHERDIR" Guid="{2289C0E6-799E-4489-805D-F8EB0695CBCF}" KeyPath="yes">
+      <!-- utl:User Id="P_Administrator" Domain="." Name="Administrator" / -->
+      <pca:MessageQueue Id="P_MessageQueue" Label="CompuFlowPublisher" PathName=".\Private$\CompuFlowPublisher">
+        <!-- pca:MessageQueuePermission Id="P_MessageQueuePermissionA" User="P_Administrator" ReceiveMessage="yes" WriteMessage ="yes" / -->
+      </pca:MessageQueue>
+    </Component>
+
+    <Component Id="E_MessageQueueComponent" Directory="EVENTSDIR" Guid="{8362394C-4A06-434B-9105-DC3C76935935}" KeyPath="yes">
+      <!-- utl:User Id="E_Administrator" Domain="." Name="Administrator" / -->
+      <pca:MessageQueue Id="E_MessageQueue" Label="CompuFlowEvents" PathName=".\Private$\CompuFlowEvents">
+        <!-- pca:MessageQueuePermission Id="E_MessageQueuePermissionA" User="E_Administrator" ReceiveMessage="yes" WriteMessage ="yes" / -->
+      </pca:MessageQueue>
+    </Component>
+    
+    <!-- Step 3: Tell WiX to install the files -->
+    <Feature Id="MainApplicationRetrival" Title="Retrival" ConfigurableDirectory="RETRIVALDIR" Description="CompuFlow Retrival" TypicalDefault="install" InstallDefault="local" Level="1">
+      <ComponentRef Id="ItSoftware.CompuFlow.Retrival" />
+      <ComponentRef Id="R_ICSharpCode.SharpZipLib" />
+      <ComponentRef Id="R_ItSoftware.CompuFlow.Common" />
+      <ComponentRef Id="R_ItSoftware.CompuFlow.Gateway.SectionHandlers" />
+      <ComponentRef Id="R_ItSoftware.CompuFlow.Manifest" />
+      <ComponentRef Id="R_ItSoftware.CompuFlow.Retrival.HostRuntime" />
+      <ComponentRef Id="R_ItSoftware.CompuFlow.Retrival.Interfaces" />
+      <ComponentRef Id="R_ItSoftware.CompuFlow.Util" />
+      <ComponentRef Id="R_ItSoftware.ExceptionHandler" />
+      <ComponentRef Id="R_MessageQueueComponent"/>
+      <ComponentRef Id="RetrivalDirectories" />
+    </Feature>
+    <Feature Id="MainApplicationGenerator" Title="Generator" ConfigurableDirectory="GENERATORDIR" Description="CompuFlow Generator" TypicalDefault="install" InstallDefault="local" Level="1">
+      <ComponentRef Id="ItSoftware.CompuFlow.Generator" />
+      <ComponentRef Id="G_ICSharpCode.SharpZipLib" />
+      <ComponentRef Id="G_ItSoftware.CompuFlow.Common" />
+      <ComponentRef Id="G_ItSoftware.CompuFlow.Gateway.SectionHandlers" />
+      <ComponentRef Id="G_ItSoftware.CompuFlow.Manifest" />
+      <ComponentRef Id="G_ItSoftware.CompuFlow.Generator.HostRuntime" />
+      <ComponentRef Id="G_ItSoftware.CompuFlow.Generator.Interfaces" />
+      <ComponentRef Id="G_ItSoftware.CompuFlow.Util" />
+      <ComponentRef Id="G_ItSoftware.ExceptionHandler" />
+      <ComponentRef Id="G_MessageQueueComponent"/>
+      <ComponentRef Id="GeneratorDirectories" />
+    </Feature>
+    <Feature Id="MainApplicationPublisher" Title="Publisher" ConfigurableDirectory="PUBLISHERDIR" Description="CompuFlow Publisher" TypicalDefault="install" InstallDefault="local" Level="1">
+      <ComponentRef Id="ItSoftware.CompuFlow.Publisher" />
+      <ComponentRef Id="P_ICSharpCode.SharpZipLib" />
+      <ComponentRef Id="P_ItSoftware.CompuFlow.Common" />
+      <ComponentRef Id="P_ItSoftware.CompuFlow.Gateway.SectionHandlers" />
+      <ComponentRef Id="P_ItSoftware.CompuFlow.Manifest" />
+      <ComponentRef Id="P_ItSoftware.CompuFlow.Publisher.HostRuntime" />
+      <ComponentRef Id="P_ItSoftware.CompuFlow.Publisher.Interfaces" />
+      <ComponentRef Id="P_ItSoftware.CompuFlow.Util" />
+      <ComponentRef Id="P_ItSoftware.ExceptionHandler" />
+      <ComponentRef Id="P_MessageQueueComponent"/>
+      <ComponentRef Id="PublisherDirectories" />
+    </Feature>
+    <Feature Id="MainApplicationEvents" Title="Events" ConfigurableDirectory="EVENTSDIR" Description="CompuFlow Events" TypicalDefault="install" InstallDefault="local" Level="1">
+      <ComponentRef Id="ItSoftware.CompuFlow.Events" />
+      <ComponentRef Id="E_ICSharpCode.SharpZipLib" />
+      <ComponentRef Id="E_ItSoftware.CompuFlow.Common" />
+      <ComponentRef Id="E_ItSoftware.CompuFlow.Gateway.SectionHandlers" />
+      <ComponentRef Id="E_ItSoftware.CompuFlow.Manifest" />
+      <ComponentRef Id="E_ItSoftware.CompuFlow.Events.HostRuntime" />
+      <ComponentRef Id="E_ItSoftware.CompuFlow.Events.Interfaces" />
+      <ComponentRef Id="E_ItSoftware.CompuFlow.Util" />
+      <ComponentRef Id="E_ItSoftware.ExceptionHandler" />
+      <ComponentRef Id="E_MessageQueueComponent"/>
+      <ComponentRef Id="EventsDirectories" />
+    </Feature>
+    <Feature Id="MainApplicationControlCenter" Title="Control Center" ConfigurableDirectory="CONTROLCENTERDIR" Description="CompuFlow Control Center" TypicalDefault="install" InstallDefault="local" Level="1">
+      <ComponentRef Id="ItSoftware.CompuFlow.ControlCenter" />
+      <ComponentRef Id="CC_ICSharpCode.SharpZipLib" />
+      <ComponentRef Id="CC_ItSoftware.CompuFlow.Common" />
+      <ComponentRef Id="CC_ItSoftware.CompuFlow.Gateway.SectionHandlers" />
+      <ComponentRef Id="CC_ItSoftware.CompuFlow.Manifest" />
+      <ComponentRef Id="CC_ItSoftware.ExceptionHandler" />
+      <ComponentRef Id="CC_Telerik.Windows.Controls.Docking"/>
+      <ComponentRef Id="CC_Telerik.Windows.Controls.GridView"/>
+      <ComponentRef Id="CC_Telerik.Windows.Controls" />
+      <ComponentRef Id="CC_Telerik.Windows.Controls.Input" />
+      <ComponentRef Id="CC_Telerik.Windows.Controls.Navigation"/>
+      <ComponentRef Id="CC_Telerik.Windows.Controls.RibbonView" />
+      <ComponentRef Id="CC_Telerik.Windows.Data" />
+    </Feature>
+    <Property Id="WIXUI_INSTALLDIR" Value="TARGETDIR"/>
+    
+
+    <Property Id="VSDSupportedRuntimes" Value="4.0.30319" />
+
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+
+  </Product>
+</Wix>

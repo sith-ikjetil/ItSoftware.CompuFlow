@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ADED7EBE-ED71-42F9-8B4D-98BC6097796E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ItSoftware.CompuFlow.Common</RootNamespace>
+    <AssemblyName>ItSoftware.CompuFlow.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>ItSoftware.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ItSoftware.ExceptionHandler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37eb6e2bc8351ec8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ItSoftware.ExceptionHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ItSoftware\CompuFlow\Common\Channel.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\CompuFlowException.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\Controller.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\ExecutionEngineType.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\HostRuntime\BindingConfig.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\HostRuntime\HostRuntimeException.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\IExecutionEngine.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\IFlowSettings.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\IO\Flow.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\IO\FlowWatcher.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\IO\FlowWatcherEventArgs.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\IO\FlowWatcherException.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\IO\FlowWatcherRemoveChannelEventArgs.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\IO\FlowWatcherRemoveFlowIDEventArgs.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\IO\FlowWatcherRenameChannelEventArgs.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\IO\FlowWatcherRenameFlowIDEventArgs.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\IResponseInBrowser.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\RealFlow.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\ResponseInBrowser\Contracts\IResponseInBrowser.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\ResponseInBrowser\Hosts\ResponseInBrowserHost.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\ResponseInBrowser\Proxies\ResponseInBrowserProxy.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\ResponseInBrowser\ResponseInBrowserContext.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\ResponseInBrowser\Service\ResponseInBrowserService.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\SettingsException.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\Status\Contracts\IStatusInformation.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\Status\Hosts\StatusInformationHost.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\Status\Proxies\StatusInformationProxy.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\Status\Services\StatusInformationService.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\Status\StatusChannel.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\Status\StatusChannelCollection.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\Status\StatusFlow.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\Status\StatusFlowCollection.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\Status\StatusInformation.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\Status\StatusProgressItem.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\Status\StatusProgressItemCollection.cs" />
+    <Compile Include="ItSoftware\CompuFlow\Common\TransparentFlow.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ItSoftware.ExceptionHandler.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ItSoftware.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ItSoftware.CompuFlow.Gateway.SectionHandlers\ItSoftware.CompuFlow.Gateway.SectionHandlers.csproj">
+      <Project>{9d360d5d-524c-4b6e-9a11-8dcf36d9643c}</Project>
+      <Name>ItSoftware.CompuFlow.Gateway.SectionHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ItSoftware.CompuFlow.Manifest\ItSoftware.CompuFlow.Manifest.csproj">
+      <Project>{4fbbe9bd-380c-4a40-ab20-1aabf96c5ec3}</Project>
+      <Name>ItSoftware.CompuFlow.Manifest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ItSoftware.CompuFlow.Util\ItSoftware.CompuFlow.Util.csproj">
+      <Project>{72de7cd0-00b8-46b0-9966-4d3c429e3f29}</Project>
+      <Name>ItSoftware.CompuFlow.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

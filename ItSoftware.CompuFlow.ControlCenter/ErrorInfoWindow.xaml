@@ -1,0 +1,25 @@
+﻿<Window x:Class="ItSoftware.CompuFlow.ControlCenter.ErrorInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WindowErrorInfo"  Topmost="True" Height="360" WindowStartupLocation="CenterScreen" Width="930" ShowInTaskbar="False" ResizeMode="NoResize">
+    <Canvas>
+        <Image x:Name="imageBackground" Source="/Images/community_header.jpg"/>
+        <StackPanel Background="Transparent" Width="400" Canvas.Top="30" Canvas.Left="30">
+            <Label x:Name="labelErrorInfo">Error Information</Label>
+            <TextBox x:Name="textBoxErrorInfo"  HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto"  AcceptsReturn="True" Padding="5 5 5 5" Height="210"  BorderBrush="Navy" BorderThickness="1">
+            </TextBox>
+            <Label x:Name="labelPadding"></Label>
+            <Grid ShowGridLines="False">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label x:Name="labelLinkCopy" Foreground="Navy" Grid.Column="0" Grid.Row="0" Cursor="Hand" MouseLeftButtonUp="LabelLinkCopy_MouseLeftButtonUp">Copy</Label>
+                <Label x:Name="labelLinkExit" Foreground="Navy" Grid.Column="1" Grid.Row="0" Cursor="Hand" MouseLeftButtonUp="LabelLinkExit_MouseLeftButtonUp">Exit</Label>
+            </Grid>
+        </StackPanel>
+    </Canvas>
+</Window>

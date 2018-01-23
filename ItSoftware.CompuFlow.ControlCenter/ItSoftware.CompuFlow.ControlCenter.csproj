@@ -1,0 +1,416 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E03B1AB1-8A01-4412-8A09-3970C0CD0B8E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ItSoftware.CompuFlow.ControlCenter</RootNamespace>
+    <AssemblyName>ItSoftware.CompuFlow.ControlCenter</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ItSoftware.ExceptionHandler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37eb6e2bc8351ec8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ItSoftware.ExceptionHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls, Version=2015.2.623.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCWPF\2015.2.623.45\Telerik.Windows.Controls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Docking, Version=2015.2.623.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCWPF\2015.2.623.45\Telerik.Windows.Controls.Docking.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.GridView, Version=2015.2.623.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCWPF\2015.2.623.45\Telerik.Windows.Controls.GridView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Input, Version=2015.2.623.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCWPF\2015.2.623.45\Telerik.Windows.Controls.Input.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Navigation, Version=2015.2.623.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCWPF\2015.2.623.45\Telerik.Windows.Controls.Navigation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.RibbonView, Version=2015.2.623.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Telerik.Windows.Controls.RibbonView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data, Version=2015.2.623.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCWPF\2015.2.623.45\Telerik.Windows.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ErrorInfoWindow.xaml.cs">
+      <DependentUpon>ErrorInfoWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ItSoftware\CompuFlow\ControlCenter\DetailsType.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ErrorInfoWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\community_header.jpg" />
+    <Content Include="ItSoftware.ExceptionHandler.dll" />
+    <Resource Include="RibbonBar\IconMSOffice\AppIcon.png" />
+    <Resource Include="RibbonBar\IconMSOffice\Bold.png" />
+    <Resource Include="RibbonBar\IconMSOffice\ClipboardScreenTipIcon.png" />
+    <Resource Include="RibbonBar\IconMSOffice\colorpicker.png" />
+    <Resource Include="RibbonBar\IconMSOffice\doc.png" />
+    <Resource Include="RibbonBar\IconMSOffice\Emphasis.png" />
+    <Resource Include="RibbonBar\IconMSOffice\FontScreenTipIcon.png" />
+    <Resource Include="RibbonBar\IconMSOffice\footer.png" />
+    <Resource Include="RibbonBar\IconMSOffice\footerSlider.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryBulletsNone.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryBulletsType1.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryBulletsType2.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryBulletsType3.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryBulletsType4.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryBulletsType5.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryBulletsType6.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryBulletsType7.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryNumbersNone.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryNumbersType1.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryNumbersType2.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryNumbersType3.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryNumbersType4.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryNumbersType5.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryNumbersType6.png" />
+    <Resource Include="RibbonBar\IconMSOffice\GalleryNumbersType7.png" />
+    <Resource Include="RibbonBar\IconMSOffice\Heading1.png" />
+    <Resource Include="RibbonBar\IconMSOffice\Heading2.png" />
+    <Resource Include="RibbonBar\IconMSOffice\HorizontalRuler.png" />
+    <Resource Include="RibbonBar\IconMSOffice\Intense_Emphasis.png" />
+    <Resource Include="RibbonBar\IconMSOffice\Normal.png" />
+    <Resource Include="RibbonBar\IconMSOffice\No_Spacing.png" />
+    <Resource Include="RibbonBar\IconMSOffice\paragraph.png" />
+    <Resource Include="RibbonBar\IconMSOffice\paragraph1.png" />
+    <Resource Include="RibbonBar\IconMSOffice\paragraph10.png" />
+    <Resource Include="RibbonBar\IconMSOffice\paragraph2.png" />
+    <Resource Include="RibbonBar\IconMSOffice\paragraph3.png" />
+    <Resource Include="RibbonBar\IconMSOffice\paragraph4.png" />
+    <Resource Include="RibbonBar\IconMSOffice\paragraph5.png" />
+    <Resource Include="RibbonBar\IconMSOffice\paragraph6.png" />
+    <Resource Include="RibbonBar\IconMSOffice\paragraph7.png" />
+    <Resource Include="RibbonBar\IconMSOffice\paragraph8.png" />
+    <Resource Include="RibbonBar\IconMSOffice\paragraph9.png" />
+    <Resource Include="RibbonBar\IconMSOffice\ParagraphScreenTipIcon.png" />
+    <Resource Include="RibbonBar\IconMSOffice\Strong.png" />
+    <Resource Include="RibbonBar\IconMSOffice\StylesScreenTipIcon.png" />
+    <Resource Include="RibbonBar\IconMSOffice\Subtitle.png" />
+    <Resource Include="RibbonBar\IconMSOffice\Subtitle_Emphasis.png" />
+    <Resource Include="RibbonBar\IconMSOffice\TextField.png" />
+    <Resource Include="RibbonBar\IconMSOffice\Title.png" />
+    <Resource Include="RibbonBar\IconMSOffice\truetype.png" />
+    <Resource Include="RibbonBar\IconMSOffice\underline1.png" />
+    <Resource Include="RibbonBar\IconMSOffice\underline2.png" />
+    <Resource Include="RibbonBar\IconMSOffice\underline3.png" />
+    <Resource Include="RibbonBar\IconMSOffice\underline4.png" />
+    <Resource Include="RibbonBar\IconMSOffice\underline5.png" />
+    <Resource Include="RibbonBar\IconMSOffice\underline6.png" />
+    <Resource Include="RibbonBar\IconMSOffice\underline7.png" />
+    <Resource Include="RibbonBar\IconMSOffice\underline8.png" />
+    <Resource Include="RibbonBar\IconMSOffice\Underlined.png" />
+    <Resource Include="RibbonBar\IconMSOffice\users.png" />
+    <Resource Include="RibbonBar\IconMSOffice\VerticalRuler.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\aligncenter.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\alignjustify.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\alignleft.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\alignright.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\bold.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\ClearFormatting16.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\color.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\copy.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\cut.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\DateTime.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\expandspace.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\find.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\findnext.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\font-decreasesize.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\font-increasesize.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\fontcolor.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\fontdialog.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\fontscheme.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\formatpainter.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\highlight.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\indent.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\inserthyperlink.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\inserttabcontrol.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\italic.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\linecolor.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\list-bullets.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\list-numbered-tb.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\list-numbered.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\new.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\Object.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\outdent.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\paste.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\pastehyperlink.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\pastespecial.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\pointer.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\print.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\pushpin.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\recolorpicture.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\refresh.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\ruler.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\save.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\SignatureLine.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\sortasc.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\strikeout.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\Strikethrough16.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\subscript.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\superscript.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\synchronizelist.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\underline.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\UnderlineDouble.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\undo.png" />
+    <Resource Include="RibbonBar\IconMSOffice\16\zoom.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\arrangewindows.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\blog.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\Bookmark.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\ChangeStyles32.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\chart.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\ClipArt.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\copy.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\CoverPage.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\crop.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\CrossReference.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\digitalsignature.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\documentserver.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\documentworkspace.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\DropCap.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\encryptdocument.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\Equation.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\Excel.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\find.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\Footer.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\fullscreen.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\function.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\Header.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\highlight.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\homepage.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\inserthyperlink.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\inspectdocument.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\markasfinal.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\new.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\newclassmodule.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\open.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\PageBreak.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\PageNumber.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\paste.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\Picture.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\portraitlandscape.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\print.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\printpreview.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\properties.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\properties32.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\protectform.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\QuickParts.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\relationships.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\restrictpermisions.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\save.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\saveas.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\Shapes.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\SmartArt.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\Symbol.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\Table.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\textbox.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\TextBox32.png" />
+    <Resource Include="RibbonBar\IconMSOffice\32\WordArt.png" />
+    <Resource Include="RibbonBar\IconPaint\Bubble.png" />
+    <Resource Include="RibbonBar\IconPaint\ColorPicker.png" />
+    <Resource Include="RibbonBar\IconPaint\content.png" />
+    <Resource Include="RibbonBar\IconPaint\edit_color.png" />
+    <Resource Include="RibbonBar\IconPaint\footer.png" />
+    <Resource Include="RibbonBar\IconPaint\paint.png" />
+    <Resource Include="RibbonBar\IconPaint\rules.png" />
+    <Resource Include="RibbonBar\IconPaint\16\100screen.png" />
+    <Resource Include="RibbonBar\IconPaint\16\colors_icon.png" />
+    <Resource Include="RibbonBar\IconPaint\16\crop.png" />
+    <Resource Include="RibbonBar\IconPaint\16\delete_disable.png" />
+    <Resource Include="RibbonBar\IconPaint\16\eraser.png" />
+    <Resource Include="RibbonBar\IconPaint\16\exit.png" />
+    <Resource Include="RibbonBar\IconPaint\16\Eyedropper.png" />
+    <Resource Include="RibbonBar\IconPaint\16\fill.png" />
+    <Resource Include="RibbonBar\IconPaint\16\free_form_selection.png" />
+    <Resource Include="RibbonBar\IconPaint\16\full_screen.png" />
+    <Resource Include="RibbonBar\IconPaint\16\invert_selection_disable.png" />
+    <Resource Include="RibbonBar\IconPaint\16\Opaque.png" />
+    <Resource Include="RibbonBar\IconPaint\16\options.png" />
+    <Resource Include="RibbonBar\IconPaint\16\outline.png" />
+    <Resource Include="RibbonBar\IconPaint\16\paint-bucket.png" />
+    <Resource Include="RibbonBar\IconPaint\16\paste.png" />
+    <Resource Include="RibbonBar\IconPaint\16\paste_form.png" />
+    <Resource Include="RibbonBar\IconPaint\16\pen.png" />
+    <Resource Include="RibbonBar\IconPaint\16\rect_select.png" />
+    <Resource Include="RibbonBar\IconPaint\16\resize.png" />
+    <Resource Include="RibbonBar\IconPaint\16\rotate.png" />
+    <Resource Include="RibbonBar\IconPaint\16\select_all.png" />
+    <Resource Include="RibbonBar\IconPaint\16\shape_icon.png" />
+    <Resource Include="RibbonBar\IconPaint\16\text.png" />
+    <Resource Include="RibbonBar\IconPaint\16\thumbnail.png" />
+    <Resource Include="RibbonBar\IconPaint\16\tool.png" />
+    <Resource Include="RibbonBar\IconPaint\16\transparent.png" />
+    <Resource Include="RibbonBar\IconPaint\16\zoom.png" />
+    <Resource Include="RibbonBar\IconPaint\16\zoom_in.png" />
+    <Resource Include="RibbonBar\IconPaint\16\zoom_out.png" />
+    <Resource Include="RibbonBar\IconPaint\32\brush1.png" />
+    <Resource Include="RibbonBar\IconPaint\32\brush2.png" />
+    <Resource Include="RibbonBar\IconPaint\32\brush3.png" />
+    <Resource Include="RibbonBar\IconPaint\32\brush4.png" />
+    <Resource Include="RibbonBar\IconPaint\32\brush5.png" />
+    <Resource Include="RibbonBar\IconPaint\32\brush6.png" />
+    <Resource Include="RibbonBar\IconPaint\32\brush7.png" />
+    <Resource Include="RibbonBar\IconPaint\32\brush8.png" />
+    <Resource Include="RibbonBar\IconPaint\32\brush9.png" />
+    <Resource Include="RibbonBar\IconPaint\32\fill_screen.png" />
+    <Resource Include="RibbonBar\IconPaint\32\fill_zoom.png" />
+    <Resource Include="RibbonBar\IconPaint\32\paste.png" />
+    <Resource Include="RibbonBar\IconPaint\32\select.png" />
+    <Resource Include="RibbonBar\IconPaint\32\shape_icon.png" />
+    <Resource Include="RibbonBar\IconPaint\32\size.png" />
+    <Resource Include="RibbonBar\IconPaint\32\thumbnail_active.png" />
+    <Resource Include="RibbonBar\IconPaint\32\zoom_negative.png" />
+    <Resource Include="RibbonBar\IconPaint\32\zoom_plus.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\about_paint.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\bmp.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\center.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\exit.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\fill.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\from_scanner_camera.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\gif.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\jpg.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\new.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\open.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\pagesetup.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\png.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\print.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\print_preview.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\properties.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\save.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\save_as.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\send_email.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\set_as_desktop.png" />
+    <Resource Include="RibbonBar\IconPaint\menu\tile.png" />
+    <Resource Include="RibbonBar\ApplicationImage.png" />
+    <Content Include="Telerik.Windows.Controls.dll" />
+    <Content Include="Telerik.Windows.Controls.Docking.dll" />
+    <Content Include="Telerik.Windows.Controls.GridView.dll" />
+    <Content Include="Telerik.Windows.Controls.Input.dll" />
+    <Content Include="Telerik.Windows.Controls.Navigation.dll" />
+    <Content Include="Telerik.Windows.Controls.RibbonView.dll" />
+    <Content Include="Telerik.Windows.Data.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ItSoftware.CompuFlow.Common\ItSoftware.CompuFlow.Common.csproj">
+      <Project>{aded7ebe-ed71-42f9-8b4d-98bc6097796e}</Project>
+      <Name>ItSoftware.CompuFlow.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ItSoftware.CompuFlow.Manifest\ItSoftware.CompuFlow.Manifest.csproj">
+      <Project>{4fbbe9bd-380c-4a40-ab20-1aabf96c5ec3}</Project>
+      <Name>ItSoftware.CompuFlow.Manifest</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<binding
+  type="ItSoftware.CompuFlow.Generator.TestGenerator.SiteGenerator" 
+  displayName="ItSoftware.CompuFlow.Generator.TestGenerator,version=1.0.0.0,culture=neutral,PublicKeyToken=37EB6E2BC8351EC8" 
+  pooled="false"
+  />

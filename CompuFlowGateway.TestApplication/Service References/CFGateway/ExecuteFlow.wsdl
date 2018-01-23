@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://schemas.itsoftware.no/2010/CompuFlow/ExecuteFlow" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://schemas.itsoftware.no/2010/CompuFlow/ExecuteFlow" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://schemas.itsoftware.no/2010/CompuFlow/ExecuteFlow">
+      <s:element name="ExecuteFlow">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="flowID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="keys" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="values" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ExecuteFlowResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ExecuteFlowWithReturn">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="flowID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="keys" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="values" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExecuteFlowWithReturnResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExecuteFlowWithReturnResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ExecuteFlowSoapIn">
+    <wsdl:part name="parameters" element="tns:ExecuteFlow" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteFlowSoapOut">
+    <wsdl:part name="parameters" element="tns:ExecuteFlowResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteFlowWithReturnSoapIn">
+    <wsdl:part name="parameters" element="tns:ExecuteFlowWithReturn" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteFlowWithReturnSoapOut">
+    <wsdl:part name="parameters" element="tns:ExecuteFlowWithReturnResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ExecuteFlowWebServiceSoap">
+    <wsdl:operation name="ExecuteFlow">
+      <wsdl:input message="tns:ExecuteFlowSoapIn" />
+      <wsdl:output message="tns:ExecuteFlowSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteFlowWithReturn">
+      <wsdl:input message="tns:ExecuteFlowWithReturnSoapIn" />
+      <wsdl:output message="tns:ExecuteFlowWithReturnSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ExecuteFlowWebServiceSoap" type="tns:ExecuteFlowWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ExecuteFlow">
+      <soap:operation soapAction="http://schemas.itsoftware.no/2010/CompuFlow/ExecuteFlow/ExecuteFlow" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteFlowWithReturn">
+      <soap:operation soapAction="http://schemas.itsoftware.no/2010/CompuFlow/ExecuteFlow/ExecuteFlowWithReturn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ExecuteFlowWebServiceSoap12" type="tns:ExecuteFlowWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ExecuteFlow">
+      <soap12:operation soapAction="http://schemas.itsoftware.no/2010/CompuFlow/ExecuteFlow/ExecuteFlow" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteFlowWithReturn">
+      <soap12:operation soapAction="http://schemas.itsoftware.no/2010/CompuFlow/ExecuteFlow/ExecuteFlowWithReturn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ExecuteFlowWebService">
+    <wsdl:port name="ExecuteFlowWebServiceSoap" binding="tns:ExecuteFlowWebServiceSoap">
+      <soap:address location="http://localhost:50812/ExecuteFlow.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ExecuteFlowWebServiceSoap12" binding="tns:ExecuteFlowWebServiceSoap12">
+      <soap12:address location="http://localhost:50812/ExecuteFlow.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
