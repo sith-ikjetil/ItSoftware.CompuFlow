@@ -37,12 +37,12 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>ItSoftware.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ItSoftware.ExceptionHandler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37eb6e2bc8351ec8, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\ItSoftware.ExceptionHandler.dll</HintPath>
+    <Reference Include="ItSoftware.ExceptionHandler">
+      <HintPath>..\ItSoftware.ExceptionHandler\ItSoftware.ExceptionHandler.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,12 +59,6 @@
     <Compile Include="ItSoftware\CompuFlow\Retrival\HostRuntime\RealRetrival.cs" />
     <Compile Include="ItSoftware\CompuFlow\Retrival\HostRuntime\RetrivalBindingConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ItSoftware.ExceptionHandler.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ItSoftware.snk" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

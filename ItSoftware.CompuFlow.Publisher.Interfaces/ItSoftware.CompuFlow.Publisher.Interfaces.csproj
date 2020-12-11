@@ -48,9 +48,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ItSoftware.snk" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\ItSoftware.CompuFlow.Common\ItSoftware.CompuFlow.Common.csproj">
       <Project>{aded7ebe-ed71-42f9-8b4d-98bc6097796e}</Project>
       <Name>ItSoftware.CompuFlow.Common</Name>

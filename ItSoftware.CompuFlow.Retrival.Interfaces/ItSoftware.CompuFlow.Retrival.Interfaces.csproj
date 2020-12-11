@@ -37,7 +37,8 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>ItSoftware.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -52,9 +53,6 @@
   <ItemGroup>
     <Compile Include="ItSoftware\CompuFlow\Retrival\Interfaces\IRetrival.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ItSoftware.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ItSoftware.CompuFlow.Common\ItSoftware.CompuFlow.Common.csproj">

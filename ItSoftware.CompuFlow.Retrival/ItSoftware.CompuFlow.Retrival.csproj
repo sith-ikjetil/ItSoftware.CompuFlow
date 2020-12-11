@@ -37,9 +37,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ItSoftware.ExceptionHandler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37eb6e2bc8351ec8, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\ItSoftware.ExceptionHandler.dll</HintPath>
+    <Reference Include="ItSoftware.ExceptionHandler">
+      <HintPath>..\ItSoftware.ExceptionHandler\ItSoftware.ExceptionHandler.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -74,10 +73,6 @@
     <None Include="Flow.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ItSoftware.snk" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ItSoftware.ExceptionHandler.dll" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProjectInstaller.resx" />
