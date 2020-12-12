@@ -286,27 +286,6 @@
       <Component Id="CC_ItSoftware.ExceptionHandler" Guid="{4E32707F-D156-467A-8139-F51E299149E3}">
         <File Id="CC_ItSoftware.ExceptionHandler.dll"  Name="ItSoftware.ExceptionHandler.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\ItSoftware.ExceptionHandler.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
       </Component>
-      <Component Id="CC_Telerik.Windows.Controls.Docking" Guid="{68B8044D-9C85-4DC0-B77E-BAD6605D4A2C}">
-        <File Id="CC_Telerik.Windows.Controls.Docking.dll"  Name="Telerik.Windows.Controls.Docking.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Controls.Docking.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
-      </Component>
-      <Component Id="CC_Telerik.Windows.Controls.GridView" Guid="{BCA5F568-0113-4C26-9F0D-824CA0E73171}">
-        <File Id="CC_Telerik.Windows.Controls.GridView.dll"  Name="Telerik.Windows.Controls.GridView.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Controls.GridView.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
-      </Component>
-      <Component Id="CC_Telerik.Windows.Controls" Guid="{4E837DB0-BA67-44AF-8BB8-524413E6FC5D}">
-        <File Id="CC_Telerik.Windows.Controls.dll"  Name="Telerik.Windows.Controls.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Controls.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
-      </Component>
-      <Component Id="CC_Telerik.Windows.Controls.Input" Guid="{66081FD9-E48A-465C-8E75-6C19920B2768}">
-        <File Id="CC_Telerik.Windows.Controls.Input.dll"  Name="Telerik.Windows.Controls.Input.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Controls.Input.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
-      </Component>
-      <Component Id="CC_Telerik.Windows.Controls.Navigation" Guid="{3D07361F-5954-4A95-A173-BD283707E9C7}">
-        <File Id="CC_Telerik.Windows.Controls.Navigation.dll"  Name="Telerik.Windows.Controls.Navigation.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Controls.Navigation.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
-      </Component>
-      <Component Id="CC_Telerik.Windows.Controls.RibbonView" Guid="{B2205179-9244-4607-81E3-840C282DB195}">
-        <File Id="CC_Telerik.Windows.Controls.RibbonView.dll"  Name="Telerik.Windows.Controls.RibbonView.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Controls.RibbonView.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
-      </Component>
-      <Component Id="CC_Telerik.Windows.Data" Guid="{8C049F9D-4DF5-4B75-9B5B-D8406B9850EE}">
-        <File Id="CC_Telerik.Windows.Data.dll"  Name="Telerik.Windows.Data.dll"  Vital="yes" Source="$(sys.CURRENTDIR)..\ItSoftware.CompuFlow.ControlCenter\bin\Release\Telerik.Windows.Data.dll" KeyPath="yes" Checksum="no" Assembly=".net"  AssemblyApplication="ItSoftware.CompuFlow.ControlCenter.exe" />
-      </Component>
     </DirectoryRef>
 
     <Component Id="R_MessageQueueComponent" Directory="RETRIVALDIR" Guid="{FAA24F12-5560-4477-AC27-EE5BBD67CB1B}" KeyPath="yes">
@@ -397,13 +376,6 @@
       <ComponentRef Id="CC_ItSoftware.CompuFlow.Gateway.SectionHandlers" />
       <ComponentRef Id="CC_ItSoftware.CompuFlow.Manifest" />
       <ComponentRef Id="CC_ItSoftware.ExceptionHandler" />
-      <ComponentRef Id="CC_Telerik.Windows.Controls.Docking"/>
-      <ComponentRef Id="CC_Telerik.Windows.Controls.GridView"/>
-      <ComponentRef Id="CC_Telerik.Windows.Controls" />
-      <ComponentRef Id="CC_Telerik.Windows.Controls.Input" />
-      <ComponentRef Id="CC_Telerik.Windows.Controls.Navigation"/>
-      <ComponentRef Id="CC_Telerik.Windows.Controls.RibbonView" />
-      <ComponentRef Id="CC_Telerik.Windows.Data" />
     </Feature>
     <Property Id="WIXUI_INSTALLDIR" Value="TARGETDIR"/>
     

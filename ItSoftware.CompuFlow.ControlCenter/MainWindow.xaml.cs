@@ -14,13 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Telerik.Windows.Controls;
-using Telerik.Windows.Controls.TreeView;
-using Telerik.Windows.Controls.GridView;
-using Telerik.Windows.Data;
 using System.Data;
-using Telerik.Windows;
-using Telerik.Windows.Controls.RibbonView;
 using ItSoftware.CompuFlow.Common;
 using System.ServiceModel;
 using System.Xml;
@@ -118,7 +112,7 @@ namespace ItSoftware.CompuFlow.ControlCenter
                 if (dt != null)
                 {
                     this.RetrivalDataGrid.ItemsSource = null;
-                    this.RetrivalDataGrid.ItemsSource = dt;
+                    this.RetrivalDataGrid.ItemsSource = dt.DefaultView;
                 }
             }
             else if (type == ExecutionEngineType.Generator)
@@ -143,7 +137,7 @@ namespace ItSoftware.CompuFlow.ControlCenter
                 if (dt != null)
                 {
                     this.GeneratorDataGrid.ItemsSource = null;
-                    this.GeneratorDataGrid.ItemsSource = dt;
+                    this.GeneratorDataGrid.ItemsSource = dt.DefaultView;
                 }
             }
             else if (type == ExecutionEngineType.Publisher)
@@ -168,7 +162,7 @@ namespace ItSoftware.CompuFlow.ControlCenter
                 if (dt != null)
                 {
                     this.PublisherDataGrid.ItemsSource = null;
-                    this.PublisherDataGrid.ItemsSource = dt;
+                    this.PublisherDataGrid.ItemsSource = dt.DefaultView;
                 }
             }
             else if (type == ExecutionEngineType.Events)
@@ -193,7 +187,7 @@ namespace ItSoftware.CompuFlow.ControlCenter
                 if (dt != null)
                 {
                     this.EventsDataGrid.ItemsSource = null;
-                    this.EventsDataGrid.ItemsSource = dt;
+                    this.EventsDataGrid.ItemsSource = dt.DefaultView;
                 }
             }
         }
@@ -426,11 +420,8 @@ namespace ItSoftware.CompuFlow.ControlCenter
                     XmlNodeList xnlQueueItems = xnChannel.SelectNodes("queue/item");
                     foreach (XmlNode xnQueueItem in xnlQueueItems)
                     {
-                        
-                        
                         FlowManifest manifest = new FlowManifest(xnQueueItem.InnerText);
                         
-
                         foreach (string key in manifest.InputParameters.Keys)
                         {
                             //
@@ -460,62 +451,6 @@ namespace ItSoftware.CompuFlow.ControlCenter
             }
             return dt;
         }
-        private void RadRibbonBar_ApplicationButtonDoubleClick(object sender, RadRoutedEventArgs e)
-        {
-            //LogEvent("ApplicationButtonDoubleClick");
-        }
-
-        private void RadRibbonBar_CollapsedChanged(object sender, RadRoutedEventArgs e)
-        {
-            //LogEvent(String.Format("CollapsedChanged to [{0}]", (sender as RadRibbonBar).IsCollapsed));
-        }
-
-        private void RadRibbonBar_HelpRequested(object sender, RadRoutedEventArgs e)
-        {
-            // LogEvent("HelpRequested");
-        }
-
-        private void RadRibbonBar_MinimizedChanged(object sender, RadRoutedEventArgs e)
-        {
-            // LogEvent(String.Format("MinimizedChanged to [{0}]", (sender as RadRibbonBar).IsMinimized));
-        }
-
-        private void RadRibbonBar_MinimizedPopupOpenStateChanged(object sender, RadRoutedEventArgs e)
-        {
-            // LogEvent(String.Format("MinimizedPopupStateChanged [{0}]", (sender as RadRibbonBar).IsMinimizedPopupOpen));
-        }
-
-        private void RadRibbonBar_PreviewSelectedTabChanged(object sender, RadRoutedEventArgs e)
-        {
-            // LogEvent("PreviewSelectedTabChanged");
-        }
-
-        private void RadRibbonBar_SelectedTabChanged(object sender, RadRoutedEventArgs e)
-        {
-            // if ((sender as RadRibbonBar).SelectedTab != null)
-            // {
-            //     LogEvent(String.Format("SelectedTabChanged to [{0}]", (sender as RadRibbonBar).SelectedTab.Header));
-            // }
-            // else
-            // {
-            //     LogEvent("SelectedTabChanged to [-NONE-]");
-            // }
-        }
-
-        private void RadRibbonBar_ToolBarPositionChanged(object sender, RadRoutedEventArgs e)
-        {
-            //LogEvent("ToolBarPositionChanged");
-        }
-
-        private void RibbonGroup_LaunchDialog(object sender, RadRoutedEventArgs e)
-        {
-            //RadWindow.Alert("Show Group Options");
-        }
-
-        private void RibbonApplicationMenuItem_Hover(object sender, RadRoutedEventArgs e)
-        {
-            //radRibbonBar1.ApplicationMenu.HideInternalPopups();
-        }
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
         {
@@ -526,19 +461,19 @@ namespace ItSoftware.CompuFlow.ControlCenter
         {
             this.Details = DetailsType.Status;
 
-            if (this.RadPaneGroup.SelectedPane.Title == "Retrival")
+            if (object.ReferenceEquals(this.TabControlMain.SelectedItem, RetrivalDocumentPane))
             {
                 Refresh(ExecutionEngineType.Retrival);
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Generator")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, GeneratorDocumentPane))
             {
                 Refresh(ExecutionEngineType.Generator);
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Publisher")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, PublisherDocumentPane))
             {
                 Refresh(ExecutionEngineType.Publisher);
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Events")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, EventsDocumentPane))
             {
                 Refresh(ExecutionEngineType.Events);
             }
@@ -547,7 +482,7 @@ namespace ItSoftware.CompuFlow.ControlCenter
         private string RenderCurrentTableToCSV()
         {
             StringBuilder text = new StringBuilder();
-            if (this.RadPaneGroup.SelectedPane.Title == "Retrival")
+            if (object.ReferenceEquals(this.TabControlMain.SelectedItem, RetrivalDocumentPane))
             {
                 if (this.RetrivalDataGrid.Columns == null || this.RetrivalDataGrid.ItemsSource == null)
                 {
@@ -555,7 +490,7 @@ namespace ItSoftware.CompuFlow.ControlCenter
                 }
 
                 int columnCount = 0;
-                foreach (Telerik.Windows.Controls.GridViewColumn gvc in this.RetrivalDataGrid.Columns)
+                foreach (var gvc in this.RetrivalDataGrid.Columns)
                 {
                     if (text.Length > 0)
                     {
@@ -572,7 +507,8 @@ namespace ItSoftware.CompuFlow.ControlCenter
 
                 text.AppendLine();
 
-                DataTable dt = this.RetrivalDataGrid.ItemsSource as DataTable;
+                DataView dv = this.RetrivalDataGrid.ItemsSource as DataView;
+                DataTable dt = dv.Table;
                 foreach (DataRow dr in dt.Rows)
                 {
                     for (int i = 0; i < columnCount; i++)
@@ -586,7 +522,7 @@ namespace ItSoftware.CompuFlow.ControlCenter
                     text.AppendLine();
                 }
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Generator")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, GeneratorDocumentPane))
             {
                 if (this.GeneratorDataGrid.Columns == null || this.GeneratorDataGrid.ItemsSource == null)
                 {
@@ -594,7 +530,7 @@ namespace ItSoftware.CompuFlow.ControlCenter
                 }
 
                 int columnCount = 0;
-                foreach (Telerik.Windows.Controls.GridViewColumn gvc in this.GeneratorDataGrid.Columns)
+                foreach (var gvc in this.GeneratorDataGrid.Columns)
                 {
                     if (text.Length > 0)
                     {
@@ -611,7 +547,8 @@ namespace ItSoftware.CompuFlow.ControlCenter
 
                 text.AppendLine();
 
-                DataTable dt = this.GeneratorDataGrid.ItemsSource as DataTable;
+                DataView dv = this.GeneratorDataGrid.ItemsSource as DataView;
+                DataTable dt = dv.Table;
                 foreach (DataRow dr in dt.Rows)
                 {
                     for (int i = 0; i < columnCount; i++)
@@ -625,7 +562,7 @@ namespace ItSoftware.CompuFlow.ControlCenter
                     text.AppendLine();
                 }
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Publisher")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, PublisherDocumentPane))
             {
                 if (this.PublisherDataGrid.Columns == null || this.PublisherDataGrid.ItemsSource == null)
                 {
@@ -633,7 +570,7 @@ namespace ItSoftware.CompuFlow.ControlCenter
                 }
 
                 int columnCount = 0;
-                foreach (Telerik.Windows.Controls.GridViewColumn gvc in this.PublisherDataGrid.Columns)
+                foreach (var gvc in this.PublisherDataGrid.Columns)
                 {
                     if (text.Length > 0)
                     {
@@ -650,7 +587,8 @@ namespace ItSoftware.CompuFlow.ControlCenter
 
                 text.AppendLine();
 
-                DataTable dt = this.PublisherDataGrid.ItemsSource as DataTable;
+                DataView dv = this.PublisherDataGrid.ItemsSource as DataView;
+                DataTable dt = dv.Table;
                 foreach (DataRow dr in dt.Rows)
                 {
                     for (int i = 0; i < columnCount; i++)
@@ -664,7 +602,7 @@ namespace ItSoftware.CompuFlow.ControlCenter
                     text.AppendLine();
                 }
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Events")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, EventsDocumentPane))
             {
 
             }
@@ -711,19 +649,19 @@ namespace ItSoftware.CompuFlow.ControlCenter
         {
             this.Details = DetailsType.Manifest;
 
-            if (this.RadPaneGroup.SelectedPane.Title == "Retrival")
+            if (object.ReferenceEquals(this.TabControlMain.SelectedItem, RetrivalDocumentPane))
             {
                 Refresh(ExecutionEngineType.Retrival);
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Generator")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, GeneratorDocumentPane))
             {
                 Refresh(ExecutionEngineType.Generator);
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Publisher")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, PublisherDocumentPane))
             {
                 Refresh(ExecutionEngineType.Publisher);
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Events")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, EventsDocumentPane))
             {
                 Refresh(ExecutionEngineType.Events);
             }
@@ -733,19 +671,19 @@ namespace ItSoftware.CompuFlow.ControlCenter
         {
             this.Details = DetailsType.Progress;
 
-            if (this.RadPaneGroup.SelectedPane.Title == "Retrival")
+            if ( object.ReferenceEquals(this.TabControlMain.SelectedItem, RetrivalDocumentPane))
             {
                 Refresh(ExecutionEngineType.Retrival);
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Generator")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, GeneratorDocumentPane))
             {
                 Refresh(ExecutionEngineType.Generator);
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Publisher")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, PublisherDocumentPane))
             {
                 Refresh(ExecutionEngineType.Publisher);
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Events")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, EventsDocumentPane))
             {
                 Refresh(ExecutionEngineType.Events);
             }
@@ -754,146 +692,24 @@ namespace ItSoftware.CompuFlow.ControlCenter
         {
             this.Details = DetailsType.Queue;
 
-            if (this.RadPaneGroup.SelectedPane.Title == "Retrival")
+            if (object.ReferenceEquals(this.TabControlMain.SelectedItem, RetrivalDocumentPane))
             {
                 Refresh(ExecutionEngineType.Retrival);
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Generator")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, GeneratorDocumentPane))
             {
                 Refresh(ExecutionEngineType.Generator);
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Publisher")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, PublisherDocumentPane))
             {
                 Refresh(ExecutionEngineType.Publisher);
             }
-            else if (this.RadPaneGroup.SelectedPane.Title == "Events")
+            else if (object.ReferenceEquals(this.TabControlMain.SelectedItem, EventsDocumentPane))
             {
                 Refresh(ExecutionEngineType.Events);
             }
         }
-
-        #region Theme Changing Methods
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RadMenuItemThemeWindows7_Click(object sender, RadRoutedEventArgs e)
-        {
-            try
-            {
-                StyleManager.SetTheme(this.RadRibbonBar, new Windows7Theme());
-                StyleManager.SetTheme(this.RadPaneGroup, new Windows7Theme());
-                StyleManager.SetTheme(this.RetrivalDataGrid, new Windows7Theme());
-                StyleManager.SetTheme(this.GeneratorDataGrid, new Windows7Theme());
-                StyleManager.SetTheme(this.PublisherDataGrid, new Windows7Theme());
-                StyleManager.SetTheme(this.EventsDataGrid, new Windows7Theme());
-            }
-            catch (System.Runtime.CompilerServices.RuntimeWrappedException rwe)
-            {
-                ExceptionManager.PublishException(rwe, "Error");
-                ErrorInfoWindow wei = new ErrorInfoWindow();
-                wei.ErrorInformation = this.FormatException(rwe);
-                wei.ShowDialog();
-            }
-            catch (Exception x)
-            {
-                ExceptionManager.PublishException(x, "Error");
-                ErrorInfoWindow wei = new ErrorInfoWindow();
-                wei.ErrorInformation = this.FormatException(x);
-                wei.ShowDialog();
-            }
-                //this.RadRibbonBar.SetValue(StyleManager.ThemeProperty, new Windows7Theme());
-            //this.RadPaneGroup.SetValue(StyleManager.ThemeProperty, new Windows7Theme());
-            //this.RetrivalDataGrid.SetValue(StyleManager.ThemeProperty, new Windows7Theme());
-            //this.GeneratorDataGrid.SetValue(StyleManager.ThemeProperty, new Windows7Theme());
-            //this.PublisherDataGrid.SetValue(StyleManager.ThemeProperty, new Windows7Theme());
-            //this.EventsDataGrid.SetValue(StyleManager.ThemeProperty, new Windows7Theme());
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RadMenuItemThemeVista_Click(object sender, RadRoutedEventArgs e)
-        {
-            StyleManager.SetTheme(this.RadRibbonBar, new VistaTheme());
-            StyleManager.SetTheme(this.RadPaneGroup, new VistaTheme());
-            StyleManager.SetTheme(this.RetrivalDataGrid, new VistaTheme());
-            StyleManager.SetTheme(this.GeneratorDataGrid, new VistaTheme());
-            StyleManager.SetTheme(this.PublisherDataGrid, new VistaTheme());
-            StyleManager.SetTheme(this.EventsDataGrid, new VistaTheme());
-            //this.RadRibbonBar.SetValue(StyleManager.ThemeProperty, new VistaTheme());
-            //this.RadPaneGroup.SetValue(StyleManager.ThemeProperty, new VistaTheme());
-            //this.RetrivalDataGrid.SetValue(StyleManager.ThemeProperty, new VistaTheme());
-            //this.GeneratorDataGrid.SetValue(StyleManager.ThemeProperty, new VistaTheme());
-            //this.PublisherDataGrid.SetValue(StyleManager.ThemeProperty, new VistaTheme());
-            //this.EventsDataGrid.SetValue(StyleManager.ThemeProperty, new VistaTheme());
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RadMenuItemThemeOfficeBlack_Click(object sender, RadRoutedEventArgs e)
-        {
-            StyleManager.SetTheme(this.RadRibbonBar, new Office_BlackTheme());
-            StyleManager.SetTheme(this.RadPaneGroup, new Office_BlackTheme());
-            StyleManager.SetTheme(this.RetrivalDataGrid, new Office_BlackTheme());
-            StyleManager.SetTheme(this.GeneratorDataGrid, new Office_BlackTheme());
-            StyleManager.SetTheme(this.PublisherDataGrid, new Office_BlackTheme());
-            StyleManager.SetTheme(this.EventsDataGrid, new Office_BlackTheme());
-            //this.RadRibbonBar.SetValue(StyleManager.ThemeProperty, new Office_BlackTheme());
-            //this.RadPaneGroup.SetValue(StyleManager.ThemeProperty, new Office_BlackTheme());
-            //this.RetrivalDataGrid.SetValue(StyleManager.ThemeProperty, new Office_BlackTheme());
-            //this.GeneratorDataGrid.SetValue(StyleManager.ThemeProperty, new Office_BlackTheme());
-            //this.PublisherDataGrid.SetValue(StyleManager.ThemeProperty, new Office_BlackTheme());
-            //this.EventsDataGrid.SetValue(StyleManager.ThemeProperty, new Office_BlackTheme());
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RadMenuItemThemeOfficeBlue_Click(object sender, RadRoutedEventArgs e)
-        {
-            StyleManager.SetTheme(this.RadRibbonBar, new Office_BlueTheme());
-            StyleManager.SetTheme(this.RadPaneGroup, new Office_BlueTheme());
-            StyleManager.SetTheme(this.RetrivalDataGrid, new Office_BlueTheme());
-            StyleManager.SetTheme(this.GeneratorDataGrid, new Office_BlueTheme());
-            StyleManager.SetTheme(this.PublisherDataGrid, new Office_BlueTheme());
-            StyleManager.SetTheme(this.EventsDataGrid, new Office_BlueTheme());
-            //this.RadRibbonBar.SetValue(StyleManager.ThemeProperty, new Office_BlueTheme());
-            //this.RadPaneGroup.SetValue(StyleManager.ThemeProperty, new Office_BlueTheme());
-            //this.RetrivalDataGrid.SetValue(StyleManager.ThemeProperty, new Office_BlueTheme());
-            //this.GeneratorDataGrid.SetValue(StyleManager.ThemeProperty, new Office_BlueTheme());
-            //this.PublisherDataGrid.SetValue(StyleManager.ThemeProperty, new Office_BlueTheme());
-            //this.EventsDataGrid.SetValue(StyleManager.ThemeProperty, new Office_BlueTheme());
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RadMenuItemThemeOfficeSilver_Click(object sender, RadRoutedEventArgs e)
-        {
-            StyleManager.SetTheme(this.RadRibbonBar, new Office_SilverTheme());
-            StyleManager.SetTheme(this.RadPaneGroup, new Office_SilverTheme());
-            StyleManager.SetTheme(this.RetrivalDataGrid, new Office_SilverTheme());
-            StyleManager.SetTheme(this.GeneratorDataGrid, new Office_SilverTheme());
-            StyleManager.SetTheme(this.PublisherDataGrid, new Office_SilverTheme());
-            StyleManager.SetTheme(this.EventsDataGrid, new Office_SilverTheme());
-            //this.RadRibbonBar.SetValue(StyleManager.ThemeProperty, new Office_SilverTheme());
-            //this.RadPaneGroup.SetValue(StyleManager.ThemeProperty, new Office_SilverTheme());
-            //this.RetrivalDataGrid.SetValue(StyleManager.ThemeProperty, new Office_SilverTheme());
-            //this.GeneratorDataGrid.SetValue(StyleManager.ThemeProperty, new Office_SilverTheme());
-            //this.PublisherDataGrid.SetValue(StyleManager.ThemeProperty, new Office_SilverTheme());
-            //this.EventsDataGrid.SetValue(StyleManager.ThemeProperty, new Office_SilverTheme());
-        }
-        #endregion
-
        
-
         public string FormatException(Exception exception)
         {
             StringBuilder output = new StringBuilder();

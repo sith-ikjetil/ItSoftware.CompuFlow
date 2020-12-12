@@ -1,219 +1,74 @@
 ﻿<Window x:Class="ItSoftware.CompuFlow.ControlCenter.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:telerikNavigation="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Navigation"
-        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-        xmlns:telerikDocking="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Docking"
-        xmlns:telerikRibbonBar="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.RibbonView"   
         WindowStartupLocation="CenterScreen"  WindowState="Maximized" Title="MainWindow" Height="350" Width="525">
     <DockPanel>
-        <telerikRibbonBar:RadRibbonView x:Name="RadRibbonBar" DockPanel.Dock="Top" 
-			ApplicationButtonDoubleClick="RadRibbonBar_ApplicationButtonDoubleClick"
-            CollapsedChanged="RadRibbonBar_CollapsedChanged"
-            HelpRequested="RadRibbonBar_HelpRequested" 
-            MinimizedChanged="RadRibbonBar_MinimizedChanged"
-            MinimizedPopupOpenStateChanged="RadRibbonBar_MinimizedPopupOpenStateChanged"                                                   
-            ToolBarPositionChanged="RadRibbonBar_ToolBarPositionChanged" 
-            ApplicationName="Control Center" 
-            ApplicationButtonImageSource="./RibbonBar/ApplicationImage.png" 
-            Title="CompuFlow">
-            <telerikRibbonBar:RadRibbonView.ApplicationMenu>
-                <telerikRibbonBar:ApplicationMenu>
-                    <telerikRibbonBar:ApplicationMenu.Content>
-                        <StackPanel Width="300">
-                            <!-- telerikRibbonBar:RadGroupHeader Content="Recent Tables"/>
-                            <telerikRibbonBar:RadRibbonButton Content="1 USER" HorizontalAlignment="Stretch"/>
-                            <telerikRibbonBar:RadRibbonButton Content="2 L_COUNTRY" HorizontalAlignment="Stretch"/>
-                            <telerikRibbonBar:RadRibbonButton Content="3 COMMUNITY" HorizontalAlignment="Stretch"/>
-                            <telerikRibbonBar:RadRibbonButton Content="4 L_LANGUAGE" HorizontalAlignment="Stretch"/ -->
-                        </StackPanel>
-                    </telerikRibbonBar:ApplicationMenu.Content>
-                    <telerikRibbonBar:ApplicationMenu.FooterContent>
-                        <StackPanel Height="25" Orientation="Horizontal" >
-                            <telerik:RadButton  Width="106" Height="22" Margin="3 0"
-								Hover="RibbonApplicationMenuItem_Hover" HoverDelay="0:0:0.3">
-                                <telerik:RadButton.Content>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="3 0  5 0">
-                                        <Image Width="16" Height="16" Source="./RibbonBar/IconPaint/16/options.png" />
-                                        <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Options" />
-                                    </StackPanel>
-                                </telerik:RadButton.Content>
-                            </telerik:RadButton>
-                            <telerik:RadButton Width="84" Height="22" Margin="3 0 2 0"
-								Hover="RibbonApplicationMenuItem_Hover" HoverDelay="0:0:0.3" Click="MenuItemExit_Click" >
-                                <telerik:RadButton.Content>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="3 0  5 0">
-                                        <Image Width="16" Height="16" Source="./RibbonBar/IconPaint/16/exit.png" />
-                                        <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Exit" />
-                                    </StackPanel>
-                                </telerik:RadButton.Content>
-                            </telerik:RadButton>
-                        </StackPanel>
-                    </telerikRibbonBar:ApplicationMenu.FooterContent>
-
-                    <!-- telerikRibbonBar:RadRibbonButton 
-						Text="New" LargeImage="/RibbonBar/IconPaint/menu/new.png"
-						Hover="RibbonApplicationMenuItem_Hover" HoverDelay="0:0:0.3"/ -->
-
-                    <telerikRibbonBar:Separator />
-                    <!-- telerikRibbonBar:RadRibbonSplitButton Text="Print" LargeImage="./RibbonBar/IconPaint/menu/print.png" -->
-                        <!-- telerikRibbonBar:RadRibbonSplitButton.DropDownContent>
-                            <StackPanel HorizontalAlignment="Stretch">
-                                <telerikRibbonBar:RadGroupHeader Content="Print"/>
-                                <telerikRibbonBar:RadRibbonButton Margin="1 0 2 0"  Width="242" >
-                                    <StackPanel Orientation="Horizontal"  Margin="3 0  5 0">
-                                        <Image Stretch="None"  Source="./RibbonBar/IconPaint/menu/print.png" />
-                                        <StackPanel Margin="5 5 0 0">
-                                            <TextBlock  Text="Print " FontWeight="Bold"/>
-                                            <TextBlock  TextWrapping="Wrap" Width="180" Text="Select a printer, number of copies before printing." />
-                                        </StackPanel>
-                                    </StackPanel>
-                                </telerikRibbonBar:RadRibbonButton>
-                                <telerikRibbonBar:RadRibbonButton Margin="1 0 2 0" Width="242">
-                                    <StackPanel Orientation="Horizontal"  Margin="3 0  5 0">
-                                        <Image Stretch="None"  Source="./RibbonBar/IconPaint/menu/pagesetup.png" />
-                                        <StackPanel Margin="5 5 0 0">
-                                            <TextBlock  Text="Page Setup " FontWeight="Bold"/>
-                                            <TextBlock  TextWrapping="Wrap" Width="180" Text="Change the layout of the picture." />
-                                        </StackPanel>
-                                    </StackPanel>
-                                </telerikRibbonBar:RadRibbonButton>
-                                <telerikRibbonBar:RadRibbonButton Margin="1 0 2 0" Width="242">
-                                    <StackPanel Orientation="Horizontal"  Margin="3 0  5 0">
-                                        <Image Stretch="None"  Source="./RibbonBar/IconPaint/menu/print_preview.png" />
-                                        <StackPanel Margin="5 5 0 0">
-                                            <TextBlock  Text="Print Preview " FontWeight="Bold"/>
-                                            <TextBlock TextWrapping="Wrap" Width="180" Text="Preview and make changes." />
-                                        </StackPanel>
-                                    </StackPanel>
-                                </telerikRibbonBar:RadRibbonButton>
-                            </StackPanel>
-                        </telerikRibbonBar:RadRibbonSplitButton.DropDownContent -->
-                    <!-- /telerikRibbonBar:RadRibbonSplitButton -->
-
-                    <telerikRibbonBar:Separator />
-
-                    <telerikRibbonBar:RadRibbonButton 
-						Text="About Paint" LargeImage="./RibbonBar/IconPaint/menu/about_paint.png"
-						Hover="RibbonApplicationMenuItem_Hover" HoverDelay="0:0:0.3"/>
-
-                    <telerikRibbonBar:Separator />
-
-                    <telerikRibbonBar:RadRibbonButton  
-						Text="Exit" LargeImage="./RibbonBar/IconPaint/menu/exit.png" Click="MenuItemExit_Click" 
-						Hover="RibbonApplicationMenuItem_Hover" HoverDelay="0:0:0.3"/>
-
-                </telerikRibbonBar:ApplicationMenu>
-            </telerikRibbonBar:RadRibbonView.ApplicationMenu>
-
-            <telerikRibbonBar:RadRibbonView.QuickAccessToolBar>
-                <telerikRibbonBar:QuickAccessToolBar>
-                    <telerikRibbonBar:RadRibbonButton Text="Print" SmallImage="./RibbonBar/IconMSOffice/16/print.png" Size="Small" />
-                </telerikRibbonBar:QuickAccessToolBar>
-            </telerikRibbonBar:RadRibbonView.QuickAccessToolBar>
-
-            <telerikRibbonBar:RadRibbonTab Header="Home">
-                <telerikRibbonBar:RadRibbonGroup Header="Clipboard"  telerikRibbonBar:ScreenTip.Title="Clipboard" telerikRibbonBar:ScreenTip.Description="Show the Clipboard Task options." telerikRibbonBar:ScreenTip.Icon="./RibbonBar/IconMSOffice/ClipboardScreenTipIcon.png" DialogLauncherVisibility="Visible" LaunchDialog="RibbonGroup_LaunchDialog" Icon="./RibbonBar/IconPaint/16/paste.png">
-                    <telerikRibbonBar:RadRibbonGroup.Variants>
-                        <telerikRibbonBar:GroupVariant Variant="Medium" Priority="1" />
-                    </telerikRibbonBar:RadRibbonGroup.Variants>
-                    <telerikRibbonBar:RadCollapsiblePanel>
-                        <telerikRibbonBar:RadRibbonButton Size="Large" Click="ToggleCopyButton_Click" CollapseToMedium="WhenGroupIsMedium" Text="Copy"  LargeImage="./RibbonBar/IconMSOffice/32/Copy.png" telerikRibbonBar:ScreenTip.Title="Copy" telerikRibbonBar:ScreenTip.Description="Copies grid."  />
-                    </telerikRibbonBar:RadCollapsiblePanel>
-                </telerikRibbonBar:RadRibbonGroup>
-                <telerikRibbonBar:RadRibbonGroup Header="Export" telerikRibbonBar:ScreenTip.Title="Export" telerikRibbonBar:ScreenTip.Description="Exports current table to a csv file." telerikRibbonBar:ScreenTip.Icon="./RibbonBar/IconMSOffice/ClipboardScreenTipIcon.png" DialogLauncherVisibility="Visible" LaunchDialog="RibbonGroup_LaunchDialog">
-                    <telerikRibbonBar:RadRibbonGroup.Variants>
-                        <telerikRibbonBar:GroupVariant Variant="Medium" Priority="1" />
-                    </telerikRibbonBar:RadRibbonGroup.Variants>
-                    <telerikRibbonBar:RadCollapsiblePanel>
-                        <telerikRibbonBar:RadRibbonButton Size="Large" Click="ToggleExportCSVButton_Click"  CollapseToMedium="WhenGroupIsMedium" Text="CSV"  LargeImage="./RibbonBar/IconMSOffice/32/QuickParts.png" telerikRibbonBar:ScreenTip.Title="Export to CSV" telerikRibbonBar:ScreenTip.Description="Exports current table to CSV file."  />
-                    </telerikRibbonBar:RadCollapsiblePanel>
-                </telerikRibbonBar:RadRibbonGroup>
-
-            </telerikRibbonBar:RadRibbonTab>
-            
-
-            <telerikRibbonBar:RadRibbonTab Header="View">
-                <telerikRibbonBar:RadRibbonGroup Header="Details" DialogLauncherVisibility="Collapsed" Icon="./RibbonBar/IconPaint/16/tool.png">
-                    <telerikRibbonBar:RadRibbonGroup.Variants>
-                        <telerikRibbonBar:GroupVariant Variant="Medium" Priority="1" />
-                    </telerikRibbonBar:RadRibbonGroup.Variants>
-                    <telerikRibbonBar:RadCollapsiblePanel>
-                        <telerikRibbonBar:RadRibbonButton Click="ToggleStatusButton_Click" Size="Large" CollapseToMedium="WhenGroupIsMedium" Text="Status"  LargeImage="./RibbonBar/IconMSOffice/32/Header.png" telerikRibbonBar:ScreenTip.Title="Status" telerikRibbonBar:ScreenTip.Description="View status information."  />
-                        <telerikRibbonBar:RadRibbonButton Click="ToggleManifestButton_Click" Size="Large" CollapseToMedium="WhenGroupIsMedium" Text="Manifest" LargeImage="./RibbonBar/IconMSOffice/32/inspectdocument.png" telerikRibbonBar:ScreenTip.Title="Manifest" telerikRibbonBar:ScreenTip.Description="View manifest details."/>
-                        <telerikRibbonBar:RadRibbonButton Click="ToggleProgressButton_Click" Size="Large" CollapseToMedium="WhenGroupIsMedium" Text="Progress" LargeImage="./RibbonBar/IconMSOffice/32/Footer.png" telerikRibbonBar:ScreenTip.Title="Progress" telerikRibbonBar:ScreenTip.Description="View progress items."/>
-                        <telerikRibbonBar:RadRibbonButton Click="ToggleQueueButton_Click" Size="Large" CollapseToMedium="WhenGroupIsMedium" Text="Queue" LargeImage="./RibbonBar/IconMSOffice/32/PageNumber.png" telerikRibbonBar:ScreenTip.Title="Queue" telerikRibbonBar:ScreenTip.Description="View queue items."/>
-                    </telerikRibbonBar:RadCollapsiblePanel>
-                </telerikRibbonBar:RadRibbonGroup>
-                <telerikRibbonBar:RadRibbonGroup Header="Themes" DialogLauncherVisibility="Collapsed">
-                    <telerikRibbonBar:RadRibbonGroup.Variants>
-                        <telerikRibbonBar:GroupVariant Variant="Medium" Priority="1" />
-                    </telerikRibbonBar:RadRibbonGroup.Variants>
-                    <telerikRibbonBar:RadRibbonSplitButton  Text="Select"  LargeImage="./RibbonBar/IconPaint/edit_color.png" Size="Large" telerikRibbonBar:ScreenTip.Title="Selection" telerikRibbonBar:ScreenTip.Description="Select a part of the picture.">
-                        <telerikRibbonBar:RadRibbonSplitButton.DropDownContent>
-                            <StackPanel>
-                                <telerikRibbonBar:RadGroupHeader Content="Office"/>
-                                <telerikNavigation:RadContextMenu BorderThickness="0">
-                                    <telerikNavigation:RadMenuItem Header="Black" Click="RadMenuItemThemeOfficeBlack_Click" >
-                                        <!-- telerikNavigation:RadMenuItem.Icon>
-                                            <Image Source="./RibbonBar/IconPaint/16/rect_select.png"/>
-                                        </telerikNavigation:RadMenuItem.Icon -->
-                                    </telerikNavigation:RadMenuItem>
-                                    <telerikNavigation:RadMenuItem Header="Blue" Click="RadMenuItemThemeOfficeBlue_Click">
-                                        <!-- telerikNavigation:RadMenuItem.Icon>
-                                            <Image Source="./RibbonBar/IconPaint/16/free_form_selection.png"/>
-                                        </telerikNavigation:RadMenuItem.Icon -->
-                                    </telerikNavigation:RadMenuItem>
-                                    <telerikNavigation:RadMenuItem Header="Silver"  Click="RadMenuItemThemeOfficeSilver_Click" >
-                                        <!-- telerikNavigation:RadMenuItem.Icon>
-                                            <Image Source="./RibbonBar/IconPaint/16/free_form_selection.png"/>
-                                        </telerikNavigation:RadMenuItem.Icon -->
-                                    </telerikNavigation:RadMenuItem>
-                                </telerikNavigation:RadContextMenu>
-                                <telerikRibbonBar:RadGroupHeader Content="OS"/>
-                                <telerikNavigation:RadContextMenu BorderThickness="0">
-                                    <telerikNavigation:RadMenuItem Header="Vista" Click="RadMenuItemThemeVista_Click"  >
-                                        <!-- telerikNavigation:RadMenuItem.Icon>
-                                            <Image Source="./RibbonBar/IconPaint/16/select_all.png"/>
-                                        </telerikNavigation:RadMenuItem.Icon -->
-                                    </telerikNavigation:RadMenuItem>
-                                    <telerikNavigation:RadMenuItem  Header="Windows 7" IsEnabled="True" Click="RadMenuItemThemeWindows7_Click" >
-                                        <!-- telerikNavigation:RadMenuItem.Icon>
-                                            <Image Source="./RibbonBar/IconPaint/16/invert_selection_disable.png"/>
-                                        </telerikNavigation:RadMenuItem.Icon -->
-                                    </telerikNavigation:RadMenuItem>
-                                </telerikNavigation:RadContextMenu>
-                            </StackPanel>
-                        </telerikRibbonBar:RadRibbonSplitButton.DropDownContent>
-                    </telerikRibbonBar:RadRibbonSplitButton>
-                </telerikRibbonBar:RadRibbonGroup>
-
-            </telerikRibbonBar:RadRibbonTab>
-
-        </telerikRibbonBar:RadRibbonView>
-
-
-        <telerikDocking:RadPaneGroup  DockPanel.Dock="Bottom"   x:Name="RadPaneGroup" AllowDrop="False"  ReorderTabRows="True">
-
-            <telerikDocking:RadDocumentPane Header="Retrival" Title="Retrival" x:Name="RetrivalDocumentPane" CanFloat="False" CanUserClose="False" CanUserPin="False" CanDockInDocumentHost="False"  AllowDrop="False">
-                <telerik:RadGridView x:Name="RetrivalDataGrid" DockPanel.Dock="Top" CanUserInsertRows="False">
-                </telerik:RadGridView>
-            </telerikDocking:RadDocumentPane>
-            <telerikDocking:RadDocumentPane Header="Generator" Title="Generator"  x:Name="GeneratorDocumentPane"  CanFloat="False" CanUserClose="False" CanUserPin="False" CanDockInDocumentHost="False"  AllowDrop="False">
-                <telerik:RadGridView x:Name="GeneratorDataGrid" DockPanel.Dock="Top" CanUserInsertRows="False">
-                </telerik:RadGridView>
-            </telerikDocking:RadDocumentPane>
-            <telerikDocking:RadDocumentPane Header="Publisher" Title="Publisher"  x:Name="PublisherDocumentPane"  CanFloat="False" CanUserClose="False" CanUserPin="False" CanDockInDocumentHost="False"  AllowDrop="False">
-                <telerik:RadGridView x:Name="PublisherDataGrid" DockPanel.Dock="Top" CanUserInsertRows="False">
-                </telerik:RadGridView>
-            </telerikDocking:RadDocumentPane>
-            <telerikDocking:RadDocumentPane Header="Events" Title="Events"  x:Name="EventsDocumentPane"  CanFloat="False" CanUserClose="False" CanUserPin="False" CanDockInDocumentHost="False"  AllowDrop="False">
-                <telerik:RadGridView x:Name="EventsDataGrid" DockPanel.Dock="Top" CanUserInsertRows="False">
-                </telerik:RadGridView>
-            </telerikDocking:RadDocumentPane>
-        </telerikDocking:RadPaneGroup>
-
-
-
+        <ToolBarTray DockPanel.Dock="Top">
+            <!-- ## Exit ## -->
+            <ToolBar>
+                <Button Click="MenuItemExit_Click">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/ItSoftware.CompuFlow.ControlCenter;component/RibbonBar/IconPaint/menu/exit.png"/>
+                        <Label>Exit</Label>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+            <!-- ## Home ## -->
+            <ToolBar>
+                <Button Click="ToggleCopyButton_Click">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/ItSoftware.CompuFlow.ControlCenter;component/RibbonBar/IconMSOffice/32/Copy.png"/>
+                        <Label>Copy</Label>
+                    </StackPanel>
+                </Button>
+                <Button Click="ToggleExportCSVButton_Click">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/ItSoftware.CompuFlow.ControlCenter;component/RibbonBar/IconMSOffice/32/QuickParts.png"/>
+                        <Label>Export</Label>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+            <!-- ## Details ## -->
+            <ToolBar>
+                <Button Click="ToggleStatusButton_Click">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/ItSoftware.CompuFlow.ControlCenter;component/RibbonBar/IconMSOffice/32/Header.png"/>
+                        <Label>Status</Label>
+                    </StackPanel>
+                </Button>
+                <Button Click="ToggleManifestButton_Click">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/ItSoftware.CompuFlow.ControlCenter;component/RibbonBar/IconMSOffice/32/inspectdocument.png"/>
+                        <Label>Manifest</Label>
+                    </StackPanel>
+                </Button>
+                <Button Click="ToggleProgressButton_Click">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/ItSoftware.CompuFlow.ControlCenter;component/RibbonBar/IconMSOffice/32/Footer.png"/>
+                        <Label>Progress</Label>
+                    </StackPanel>
+                </Button>
+                <Button Click="ToggleQueueButton_Click">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/ItSoftware.CompuFlow.ControlCenter;component/RibbonBar/IconMSOffice/32/PageNumber.png"/>
+                        <Label>Queue</Label>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <TabControl x:Name="TabControlMain">
+            <TabItem x:Name="RetrivalDocumentPane" Header="Retrival">
+                <DataGrid x:Name="RetrivalDataGrid"/>
+            </TabItem>
+            <TabItem x:Name="GeneratorDocumentPane" Header="Generator">
+                <DataGrid x:Name="GeneratorDataGrid"/>
+            </TabItem>
+            <TabItem x:Name="PublisherDocumentPane" Header="Publisher">
+                <DataGrid x:Name="PublisherDataGrid"/>
+            </TabItem>
+            <TabItem x:Name="EventsDocumentPane" Header="Events">
+                <DataGrid x:Name="EventsDataGrid"/>
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </Window>
