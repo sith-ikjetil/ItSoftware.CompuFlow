@@ -1,4 +1,6 @@
-# ItSoftware.CompuFlow.2017
+# ItSoftware.CompuFlow
+License: **GPL-3.0-or-later**  
+
 CompuFlow is a producer/production-framework for all sorts of things like data generation, report production or simply 
 a process of steps in any kind of information gathering/production process. The framework uses MSMQ to initiate 
 and send the report to the next stage of production. The stages are Retrival, Generator, Publisher. At every stage 
@@ -14,5 +16,3 @@ message to the correct stages MSMQ queue. Every stage has their own queue.
 The control center application allows you to see the state of the framework. What is in production and what each stage is 
 currently working on. The control center must run on the machine where the framework is installed. This framework suits 
 itself best installed on a server although it ceirtanly can be installed on a Windows workstation machine.
-
-**NB! THIS SOFTWARE HAS NO LICENSE!**
